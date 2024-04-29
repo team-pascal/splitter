@@ -8,6 +8,8 @@ tags:
   - name: Groups
   - name: Users
   - name: Payments
+  - name: Splits
+  - name: Replacements
 paths:
   /groups:
     post:
@@ -95,33 +97,145 @@ paths:
           description: Invalid group or users
         '422':
           description: Validation exception
-  /groups/{id}:
+  /groups/{group_id}:
     get:
       tags:
         - Groups
       description: |-
         Get information of group.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "sSdaixpwYCCpeY4b"
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: "#/components/schemas/Group"
+                  users: 
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+              example:
+                group:
+                  id: "sSdaixpwYCCpeY4b"
+                  name: "Team A"
+                  created_at: 1714372101
+                  deleted_at: null
+                  updated_at: 1714372101
+                users: [
+                  {
+                    id: "xVi3UAESJ9M2PntD",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Alice",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "c8GryJjwr863GwzH",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Bob",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "7RGnEXHHtrJxPemi",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Charle",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "VQFATEpJXAT_65Qk",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Dave",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  }
+                ]
+  /groups/{group_id}/{name}:
     patch:
       tags:
         - Groups
       description: |-
-        Change information of group.
+        Change name of group.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "sSdaixpwYCCpeY4b"
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Team B"
       responses:
         '200':
           description: OK
-  /users:
+        '400':
+          description: Invalid Name
+        '404':
+          description: group not found
+        '422':
+          description: Validation exception
+  /users/{group_id}/{name}:
     post:
       tags:
         - Users
       description: |-
-        Add an user.
+        Add an user in the group.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "sSdaixpwYCCpeY4b"
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Ellen"
       responses:
         '200':
           description: OK
-  /users/list/{group_id}:
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/User"
+              example:
+                {
+                  id: "fRmi9dzyRCwPYcEY",
+                  group_id: "sSdaixpwYCCpeY4b",
+                  name: "Ellen",
+                  created_at: 1714372101,
+                  deleted_at: null,
+                  updated_at: 1714372101
+                }
+        '400':
+          description: Invalid Name
+        '404':
+          description: group not found
+        '422':
+          description: Validation exception
+  /users/{group_id}:
     get:
       tags:
        - Users
@@ -185,35 +299,134 @@ paths:
           description: Users of group not found
         '422':
           description: Validation exception
-  /users/{id}:
-    get:
-      tags:
-        - Users
-      description: |-
-        Get information of an user.
-      responses:
-        '200':
-          description: OK
+  /users/{user_id}:
     delete:
       tags:
         - Users
       description: |-
         Delete an user.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "fRmi9dzyRCwPYcEY"
       responses:
         '200':
           description: OK
+        '404':
+          description: User not found
+  /users/{user_id}/{name}:
     patch:
       tags:
         - Users
       description: |-
         Update the information of an user.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "fRmi9dzyRCwPYcEY"
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Frank"
       responses:
         '200':
           description: OK
-  /payments/split:
-    post:
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/User"
+              example:
+                {
+                  id: "fRmi9dzyRCwPYcEY",
+                  group_id: "sSdaixpwYCCpeY4b",
+                  name: "Frank",
+                  created_at: 1714372101,
+                  deleted_at: null,
+                  updated_at: 1714372101
+                }
+        '400':
+          description: Invalid Name
+        '404':
+          description: User not found
+        '422':
+          description: Validation exception
+  /payments/list/{group_id}:
+    get:
       tags:
         - Payments
+      description: |-
+        Get the information of payments.
+        For main page.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "sSdaixpwYCCpeY4b"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Payment"
+              example: [
+                    {
+                      "id": "S4fbP8dRVrwA-AiK",
+                      "title": "Burgers of Mickey D's",
+                      "amount": 5300,
+                      "group_id": "sSdaixpwYCCpeY4b",
+                      "is_split": true,
+                      "done": false,
+                      "created_at": 1714372101,
+                      "deleted_at": null,
+                      "updated_at": 1714372101
+                    },
+                    {
+                      "id": "WFCK3Qm88RA9sDsj",
+                      "title": "Dinner in restaurant",
+                      "amount": 22000,
+                      "group_id": "sSdaixpwYCCpeY4b",
+                      "is_split": true,
+                      "done": true,
+                      "created_at": 1714372101,
+                      "deleted_at": null,
+                      "updated_at": 1714372101
+                    },
+                    {
+                      "id": "dRdJ_jJjiFK2AAwD",
+                      "title": "Snack",
+                      "amount": 300,
+                      "group_id": "sSdaixpwYCCpeY4b",
+                      "is_split": false,
+                      "done": false,
+                      "created_at": 1714372101,
+                      "deleted_at": null,
+                      "updated_at": 1714372101
+                    },
+              ]
+        '400':
+          description: Invalid Group ID
+        '404':
+          description: Group not found
+        '422':
+          description: Validation exception
+  /splits:
+    post:
+      tags:
+        - Splits
       description: |-
         Register the payment information.
         For register payment page.
@@ -227,8 +440,6 @@ paths:
                   type: string
                 group_id:
                   type: string
-                is_split:
-                  type: boolean
                 lessors:
                   type: array
                   items:
@@ -246,7 +457,6 @@ paths:
             example:
               title: "Burgers of Mickey D's"
               group_id: "sSdaixpwYCCpeY4b"
-              is_split: true
               lessors: [
                 {
                   user_id: "xVi3UAESJ9M2PntD",
@@ -301,7 +511,7 @@ paths:
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
                     user_id: "xVi3UAESJ9M2PntD",
-                    amount: 4000,
+                    amount: 1300,
                     created_at: 1714372101,
                     deleted_at: null,
                     updated_at: 1714372101
@@ -327,10 +537,270 @@ paths:
           description: Invalid Split, Lessors or Lessees
         '422':
           description: Validation exception
-  /payments/replacement:
+  /splits/{split_id}:
+    get:
+      tags:
+        - Splits
+      description: |-
+        Get the information of splits.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "S4fbP8dRVrwA-AiK"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Split"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessee"
+              example:
+                split:
+                  id: "S4fbP8dRVrwA-AiK"
+                  title: "Burgers of Mickey D's"
+                  amount: 5300
+                  group_id: "sSdaixpwYCCpeY4b"
+                  done: false
+                  created_at: 1714372101
+                  deleted_at: null
+                  updated_at: 1714372101
+                lessors: [
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 4000,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 1300,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+                lessees: [
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "7RGnEXHHtrJxPemi",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "VQFATEpJXAT_65Qk",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+        '404':
+          description: Split not found
+    delete:
+      tags:
+        - Splits
+      description: |-
+        Delete the information of splits.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "S4fbP8dRVrwA-AiK"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Split not found
+    put:
+      tags:
+        - Splits
+      description: |-
+        Update the payment information.
+        For update payment page.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "S4fbP8dRVrwA-AiK"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: string
+            example:
+              title: "Burgers of Mickey D's"
+              group_id: "sSdaixpwYCCpeY4b"
+              lessors: [
+                {
+                  user_id: "xVi3UAESJ9M2PntD",
+                  amount: 4000
+                },
+                {
+                  user_id: "c8GryJjwr863GwzH",
+                  amount: 1300
+                }
+              ]
+              lessees: [
+                "7RGnEXHHtrJxPemi",
+                "VQFATEpJXAT_65Qk"
+              ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Split"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessee"
+              example:
+                split:
+                  id: "S4fbP8dRVrwA-AiK"
+                  title: "Burgers of Mickey D's"
+                  amount: 5300
+                  group_id: "sSdaixpwYCCpeY4b"
+                  done: false
+                  created_at: 1714372101
+                  deleted_at: null
+                  updated_at: 1714372101
+                lessors: [
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 4000,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "c8GryJjwr863GwzH",
+                    amount: 1300,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+                lessees: [
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "7RGnEXHHtrJxPemi",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "VQFATEpJXAT_65Qk",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '404':
+          description: Split not found
+        '422':
+          description: Validation exception
+  /splits/done/{split_id}:
+    patch: 
+      tags:
+        - Splits
+      description: |-
+        Finish split money.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "S4fbP8dRVrwA-AiK"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid Split ID
+        '404':
+          description: Split not found
+        '422':
+          description: Validation exception
+  /splits/doing/{split_id}:
+    patch: 
+      tags:
+        - Splits
+      description: |-
+        Unfinish split money.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "S4fbP8dRVrwA-AiK"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid Split ID
+        '404':
+          description: Split not found
+        '422':
+          description: Validation exception
+  /replacements:
     post:
       tags:
-        - Payments
+        - Replacements
       description: |-
         Register the payment of replacement information.
         For register payment page.
@@ -344,8 +814,216 @@ paths:
                   type: string
                 group_id:
                   type: string
-                is_split:
-                  type: boolean
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+            example:
+              title: "Snack"
+              group_id: "sSdaixpwYCCpeY4b"
+              lessors: [
+                {
+                  user_id: "xVi3UAESJ9M2PntD",
+                  amount: 300
+                }
+              ]
+              lessees: [
+                {
+                  user_id: "7RGnEXHHtrJxPemi",
+                  amount: 100
+                },
+                {
+                  user_id: "VQFATEpJXAT_65Qk",
+                  amount: 200
+                }
+              ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Replacement"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessee"
+              example:
+                split:
+                  id: "dRdJ_jJjiFK2AAwD"
+                  title: "Burgers of Mickey D's"
+                  amount: 300
+                  group_id: "sSdaixpwYCCpeY4b"
+                  done: false
+                  created_at: 1714372101
+                  deleted_at: null
+                  updated_at: 1714372101
+                lessors: [
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 300,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  }
+                ]
+                lessees: [
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "7RGnEXHHtrJxPemi",
+                    amount: 100,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "VQFATEpJXAT_65Qk",
+                    amount: 200,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '422':
+          description: Validation exception
+  /replacements/{replacement_id}:
+    get:
+      tags:
+        - Replacements
+      description: |-
+        Get the information of Replacements.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "dRdJ_jJjiFK2AAwD"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Replacement"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessee"
+              example:
+                split:
+                  id: "dRdJ_jJjiFK2AAwD"
+                  title: "Burgers of Mickey D's"
+                  amount: 300
+                  group_id: "sSdaixpwYCCpeY4b"
+                  done: false
+                  created_at: 1714372101
+                  deleted_at: null
+                  updated_at: 1714372101
+                lessors: [
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 200,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  }
+                ]
+                lessees: [
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "7RGnEXHHtrJxPemi",
+                    amount: 100,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "VQFATEpJXAT_65Qk",
+                    amount: 200,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+        '404':
+          description: Replacement not found
+    delete:
+      tags:
+        - Replacements
+      description: |-
+        Delete the information of Replacements.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "dRdJ_jJjiFK2AAwD"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Replacement not found
+    put:
+      tags:
+        - Replacements
+      description: |-
+        Update the payment of replacement information.
+        For Update payment page.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "dRdJ_jJjiFK2AAwD"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
                 lessors:
                   type: array
                   items:
@@ -417,7 +1095,7 @@ paths:
                   {
                     split_id: "dRdJ_jJjiFK2AAwD",
                     user_id: "xVi3UAESJ9M2PntD",
-                    amount: 300,
+                    amount: 200,
                     created_at: 1714372101,
                     deleted_at: null,
                     updated_at: 1714372101
@@ -443,115 +1121,54 @@ paths:
                 ]
         '400':
           description: Invalid Split, Lessors or Lessees
+        '404':
+          description: Replacement not found
         '422':
           description: Validation exception
-  /payments/list/{group_id}:
-    get:
+  /replacements/done/{replacement_id}:
+    patch: 
       tags:
-        - Payments
+        - Replacements
       description: |-
-        Get the information of payments.
-        For main page.
+        Finish replacement money.
       parameters:
-        - name: group_id
+        - name: replacemnet_id
           in: path
           required: true
           schema: 
             type: string
-          example: "sSdaixpwYCCpeY4b"
+          example: "dRdJ_jJjiFK2AAwD"
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Payment"
-              example: [
-                    {
-                      "id": "S4fbP8dRVrwA-AiK",
-                      "title": "Burgers of Mickey D's",
-                      "amount": 5300,
-                      "group_id": "sSdaixpwYCCpeY4b",
-                      "is_split": true,
-                      "done": false,
-                      "created_at": 1714372101,
-                      "deleted_at": null,
-                      "updated_at": 1714372101
-                    },
-                    {
-                      "id": "WFCK3Qm88RA9sDsj",
-                      "title": "Dinner in restaurant",
-                      "amount": 22000,
-                      "group_id": "sSdaixpwYCCpeY4b",
-                      "is_split": true,
-                      "done": true,
-                      "created_at": 1714372101,
-                      "deleted_at": null,
-                      "updated_at": 1714372101
-                    },
-                    {
-                      "id": "dRdJ_jJjiFK2AAwD",
-                      "title": "Snack",
-                      "amount": 300,
-                      "group_id": "sSdaixpwYCCpeY4b",
-                      "is_split": false,
-                      "done": false,
-                      "created_at": 1714372101,
-                      "deleted_at": null,
-                      "updated_at": 1714372101
-                    },
-              ]
         '400':
-          description: Invalid Group ID
+          description: Invalid replacement ID
         '404':
-          description: Group not found
+          description: Replacement not found
         '422':
           description: Validation exception
-  /payments/{id}:
-    get:
+  /replacements/doing/{replacement_id}:
+    patch: 
       tags:
-        - Payments
-      description: |-
-        Get the information of payments.
-      responses:
-        '200':
-          description: OK
-    delete:
-      tags:
-        - Payments
-      description: |-
-        Delete the information of payments.
-      responses:
-        '200':
-          description: OK
-    patch:
-      tags:
-        - Payments
-      description: |-
-        Update the information of payments.
-      responses:
-        '200':
-          description: OK
-  /payments/done:
-    post: 
-      tags:
-        - Payments
-      description: |-
-        Finish split money.
-      responses:
-        '200':
-          description: OK
-  /payments/doing:
-    post: 
-      tags:
-        - Payments
+        - Replacements
       description: |-
         Unfinish split money.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "dRdJ_jJjiFK2AAwD"
       responses:
         '200':
           description: OK
+        '400':
+          description: Invalid replacement ID
+        '404':
+          description: Replacement not found
+        '422':
+          description: Validation exception
 
 components:
   schemas:
@@ -648,9 +1265,6 @@ components:
         group_id:
           type: string
           example: "sSdaixpwYCCpeY4b"
-        is_split:
-          type: boolean
-          example: true
         done:
           type: boolean
           example: false
@@ -681,9 +1295,6 @@ components:
         group_id:
           type: string
           example: "sSdaixpwYCCpeY4b"
-        is_split:
-          type: boolean
-          example: true
         done:
           type: boolean
           example: false
