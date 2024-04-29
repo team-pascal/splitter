@@ -506,15 +506,35 @@ paths:
                     amount: 4000,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    from: [
+                      {
+                        user_id: "c8GryJjwr863GwzH",
+                        amount: 25
+                      },
+                      {
+                        user_id: "7RGnEXHHtrJxPemi",
+                        amount: 1325
+                      },
+                      {
+                        user_id: "VQFATEpJXAT_65Qk",
+                        amount: 1325
+                      }
+                    ]
                   },
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
-                    user_id: "xVi3UAESJ9M2PntD",
+                    user_id: "c8GryJjwr863GwzH",
                     amount: 1300,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 25
+                      }
+                    ]
                   },
                 ]
                 lessees: [
@@ -523,14 +543,26 @@ paths:
                     user_id: "7RGnEXHHtrJxPemi",
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 1325
+                      }
+                    ]
                   },
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
                     user_id: "VQFATEpJXAT_65Qk",
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 1325
+                      }
+                    ]
                   },
                 ]
         '400':
@@ -585,15 +617,35 @@ paths:
                     amount: 4000,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    from: [
+                      {
+                        user_id: "c8GryJjwr863GwzH",
+                        amount: 25
+                      },
+                      {
+                        user_id: "7RGnEXHHtrJxPemi",
+                        amount: 1325
+                      },
+                      {
+                        user_id: "VQFATEpJXAT_65Qk",
+                        amount: 1325
+                      }
+                    ]
                   },
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
-                    user_id: "xVi3UAESJ9M2PntD",
+                    user_id: "c8GryJjwr863GwzH",
                     amount: 1300,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 25
+                      }
+                    ]
                   },
                 ]
                 lessees: [
@@ -602,14 +654,26 @@ paths:
                     user_id: "7RGnEXHHtrJxPemi",
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 1325
+                      }
+                    ]
                   },
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
                     user_id: "VQFATEpJXAT_65Qk",
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 1325
+                      }
+                    ]
                   },
                 ]
         '404':
@@ -720,7 +784,21 @@ paths:
                     amount: 4000,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    from: [
+                      {
+                        user_id: "c8GryJjwr863GwzH",
+                        amount: 25
+                      },
+                      {
+                        user_id: "7RGnEXHHtrJxPemi",
+                        amount: 1325
+                      },
+                      {
+                        user_id: "VQFATEpJXAT_65Qk",
+                        amount: 1325
+                      }
+                    ]
                   },
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
@@ -728,7 +806,13 @@ paths:
                     amount: 1300,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 25
+                      }
+                    ]
                   },
                 ]
                 lessees: [
@@ -737,14 +821,26 @@ paths:
                     user_id: "7RGnEXHHtrJxPemi",
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 1325
+                      }
+                    ]
                   },
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
                     user_id: "VQFATEpJXAT_65Qk",
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 1325
+                      }
+                    ]
                   },
                 ]
         '400':
@@ -888,7 +984,17 @@ paths:
                     amount: 300,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    from: [
+                      {
+                        user_id: "7RGnEXHHtrJxPemi",
+                        amount: 100
+                      },
+                      {
+                        user_id: "VQFATEpJXAT_65Qk",
+                        amount: 200
+                      }
+                    ]
                   }
                 ]
                 lessees: [
@@ -898,7 +1004,13 @@ paths:
                     amount: 100,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 100
+                      }
+                    ]
                   },
                   {
                     split_id: "dRdJ_jJjiFK2AAwD",
@@ -906,7 +1018,13 @@ paths:
                     amount: 200,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 200
+                      }
+                    ]
                   },
                 ]
         '400':
@@ -958,10 +1076,20 @@ paths:
                   {
                     split_id: "dRdJ_jJjiFK2AAwD",
                     user_id: "xVi3UAESJ9M2PntD",
-                    amount: 200,
+                    amount: 300,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    from: [
+                      {
+                        user_id: "7RGnEXHHtrJxPemi",
+                        amount: 100
+                      },
+                      {
+                        user_id: "VQFATEpJXAT_65Qk",
+                        amount: 200
+                      }
+                    ]
                   }
                 ]
                 lessees: [
@@ -971,7 +1099,13 @@ paths:
                     amount: 100,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 100
+                      }
+                    ]
                   },
                   {
                     split_id: "dRdJ_jJjiFK2AAwD",
@@ -979,7 +1113,13 @@ paths:
                     amount: 200,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 200
+                      }
+                    ]
                   },
                 ]
         '404':
@@ -1083,7 +1223,7 @@ paths:
                       $ref: "#/components/schemas/ReplacementLessee"
               example:
                 split:
-                  id: "S4fbP8dRVrwA-AiK"
+                  id: "dRdJ_jJjiFK2AAwD"
                   title: "Burgers of Mickey D's"
                   amount: 300
                   group_id: "sSdaixpwYCCpeY4b"
@@ -1095,10 +1235,20 @@ paths:
                   {
                     split_id: "dRdJ_jJjiFK2AAwD",
                     user_id: "xVi3UAESJ9M2PntD",
-                    amount: 200,
+                    amount: 300,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    from: [
+                      {
+                        user_id: "7RGnEXHHtrJxPemi",
+                        amount: 100
+                      },
+                      {
+                        user_id: "VQFATEpJXAT_65Qk",
+                        amount: 200
+                      }
+                    ]
                   }
                 ]
                 lessees: [
@@ -1108,7 +1258,13 @@ paths:
                     amount: 100,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 100
+                      }
+                    ]
                   },
                   {
                     split_id: "dRdJ_jJjiFK2AAwD",
@@ -1116,7 +1272,13 @@ paths:
                     amount: 200,
                     created_at: 1714372101,
                     deleted_at: null,
-                    updated_at: 1714372101
+                    updated_at: 1714372101,
+                    to: [
+                      {
+                        user_id: "xVi3UAESJ9M2PntD",
+                        amount: 200
+                      }
+                    ]
                   },
                 ]
         '400':
