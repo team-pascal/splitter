@@ -155,15 +155,69 @@ paths:
       responses:
         '200':
           description: OK
-  /payments/list:
+  /payments/list/{group_id}:
     get:
       tags:
         - Payments
       description: |-
         Get the information of payments.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "sSdaixpwYCCpeY4b"
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Payment"
+              example: [
+                    {
+                      "id": "S4fbP8dRVrwA-AiK",
+                      "title": "Burgers of Mickey D's",
+                      "amount": 5300,
+                      "group_id": "sSdaixpwYCCpeY4b",
+                      "is_split": true,
+                      "done": false,
+                      "created_at": 1714372101,
+                      "deleted_at": null,
+                      "updated_at": 1714372101
+                    },
+                    {
+                      "id": "WFCK3Qm88RA9sDsj",
+                      "title": "Dinner in restaurant",
+                      "amount": 22000,
+                      "group_id": "sSdaixpwYCCpeY4b",
+                      "is_split": true,
+                      "done": true,
+                      "created_at": 1714372101,
+                      "deleted_at": null,
+                      "updated_at": 1714372101
+                    },
+                    {
+                      "id": "dRdJ_jJjiFK2AAwD",
+                      "title": "Snack",
+                      "amount": 300,
+                      "group_id": "sSdaixpwYCCpeY4b",
+                      "is_split": false,
+                      "done": false,
+                      "created_at": 1714372101,
+                      "deleted_at": null,
+                      "updated_at": 1714372101
+                    },
+              ]
+        '400':
+          description: Invalid Group ID
+        '404':
+          description: Group not found
+        '422':
+          description: Validation exception
   /payments/{id}:
     get:
       tags:
