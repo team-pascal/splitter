@@ -121,6 +121,70 @@ paths:
       responses:
         '200':
           description: OK
+  /users/list/{group_id}:
+    get:
+      tags:
+       - Users
+      description: |-
+        Get list of users.
+        For register page.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "sSdaixpwYCCpeY4b"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+              example:
+                [
+                  {
+                    id: "xVi3UAESJ9M2PntD",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Alice",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "c8GryJjwr863GwzH",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Bob",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "7RGnEXHHtrJxPemi",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Charle",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "VQFATEpJXAT_65Qk",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Dave",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  }
+                ]
+        '400':
+          description: Invalid Group ID
+        '404':
+          description: Users of group not found
+        '422':
+          description: Validation exception
   /users/{id}:
     get:
       tags:
