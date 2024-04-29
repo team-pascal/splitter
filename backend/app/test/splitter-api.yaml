@@ -165,7 +165,6 @@ paths:
                     updated_at: 1714372101
                   }
                 ]
-  /groups/{group_id}/{name}:
     patch:
       tags:
         - Groups
@@ -193,7 +192,7 @@ paths:
           description: group not found
         '422':
           description: Validation exception
-  /users/{group_id}/{name}:
+  /users/{group_id}:
     post:
       tags:
         - Users
@@ -235,7 +234,6 @@ paths:
           description: group not found
         '422':
           description: Validation exception
-  /users/{group_id}:
     get:
       tags:
        - Users
@@ -317,7 +315,6 @@ paths:
           description: OK
         '404':
           description: User not found
-  /users/{user_id}/{name}:
     patch:
       tags:
         - Users
