@@ -221,7 +221,6 @@ paths:
                   title: "Burgers of Mickey D's"
                   amount: 5300
                   group_id: "sSdaixpwYCCpeY4b"
-                  is_split: true
                   done: false
                   created_at: 1714372101
                   deleted_at: null
@@ -255,6 +254,124 @@ paths:
                   {
                     split_id: "S4fbP8dRVrwA-AiK",
                     user_id: "VQFATEpJXAT_65Qk",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '422':
+          description: Validation exception
+  /payments/replacement:
+    post:
+      tags:
+        - Payments
+      description: |-
+        Register the payment of replacement information.
+        For register payment page.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
+                is_split:
+                  type: boolean
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+            example:
+              title: "Snack"
+              group_id: "sSdaixpwYCCpeY4b"
+              lessors: [
+                {
+                  user_id: "xVi3UAESJ9M2PntD",
+                  amount: 300
+                }
+              ]
+              lessees: [
+                {
+                  user_id: "7RGnEXHHtrJxPemi",
+                  amount: 100
+                },
+                {
+                  user_id: "VQFATEpJXAT_65Qk",
+                  amount: 200
+                }
+              ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Replacement"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessee"
+              example:
+                split:
+                  id: "S4fbP8dRVrwA-AiK"
+                  title: "Burgers of Mickey D's"
+                  amount: 300
+                  group_id: "sSdaixpwYCCpeY4b"
+                  done: false
+                  created_at: 1714372101
+                  deleted_at: null
+                  updated_at: 1714372101
+                lessors: [
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 300,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  }
+                ]
+                lessees: [
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "7RGnEXHHtrJxPemi",
+                    amount: 100,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "dRdJ_jJjiFK2AAwD",
+                    user_id: "VQFATEpJXAT_65Qk",
+                    amount: 200,
                     created_at: 1714372101,
                     deleted_at: null,
                     updated_at: 1714372101
@@ -587,7 +704,7 @@ components:
           type: integer
           format: int64
           example: 1714372101
-    ReplacementLessees:
+    ReplacementLessee:
       type: object
       properties:
         split_id:
