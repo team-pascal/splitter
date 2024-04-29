@@ -15,7 +15,7 @@ paths:
         - Groups
       description: |-
         Register the group and splitter members.
-        Top page.
+        For top page.
       requestBody:
         content:
           application/json:
