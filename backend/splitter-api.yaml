@@ -14,10 +14,87 @@ paths:
       tags:
         - Groups
       description: |-
-        Register group.
+        Register the group and splitter members.
+        Top page.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                users:
+                  type: array
+                  items:
+                    type: string
+            example:
+              name: "Team 1"
+              users: [
+                "Alice",
+                "Bob",
+                "Charle",
+                "Dave"
+              ]
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: "#/components/schemas/Group"
+                  users: 
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Users"
+              example:
+                group:
+                  id: "sSdaixpwYCCpeY4b"
+                  name: "Team A"
+                  created_at: 1714372101
+                  deleted_at: 1714372101
+                  updated_at: 1714372101
+                users: [
+                  {
+                    id: "xVi3UAESJ9M2PntD",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Alice",
+                    created_at: 1714372101,
+                    deleted_at: 1714372101,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "c8GryJjwr863GwzH",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Bob",
+                    created_at: 1714372101,
+                    deleted_at: 1714372101,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "7RGnEXHHtrJxPemi",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Charle",
+                    created_at: 1714372101,
+                    deleted_at: 1714372101,
+                    updated_at: 1714372101
+                  },
+                  {
+                    id: "VQFATEpJXAT_65Qk",
+                    group_id: "sSdaixpwYCCpeY4b",
+                    name: "Dave",
+                    created_at: 1714372101,
+                    deleted_at: 1714372101,
+                    updated_at: 1714372101
+                  }
+                ]
+        '400':
+          description: Invalid group or users
+        '422':
+          description: Validation exception
   /groups/{id}:
     get:
       tags:
@@ -130,3 +207,52 @@ paths:
       responses:
         '200':
           description: OK
+
+components:
+  schemas:
+    Group:
+      type: "object"
+      properties:
+        id:
+          type: string
+          example: "sSdaixpwYCCpeY4b"
+        name:
+          type: string
+          example: Team A
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    Users:
+      type: "object"
+      properties:
+        id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        group_id:
+          type: string
+          example: "sSdaixpwYCCpeY4b"
+        name:
+          type: string
+          example: "Alice"
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        
