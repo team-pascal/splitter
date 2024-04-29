@@ -146,21 +146,131 @@ paths:
       responses:
         '200':
           description: OK
-  /payments:
+  /payments/split:
     post:
       tags:
         - Payments
       description: |-
         Register the payment information.
+        For register payment page.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
+                is_split:
+                  type: boolean
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: string
+            example:
+              title: "Burgers of Mickey D's"
+              group_id: "sSdaixpwYCCpeY4b"
+              is_split: true
+              lessors: [
+                {
+                  user_id: "xVi3UAESJ9M2PntD",
+                  amount: 4000
+                },
+                {
+                  user_id: "c8GryJjwr863GwzH",
+                  amount: 1300
+                }
+              ]
+              lessees: [
+                "7RGnEXHHtrJxPemi",
+                "VQFATEpJXAT_65Qk"
+              ]
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Split"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessee"
+              example:
+                split:
+                  id: "S4fbP8dRVrwA-AiK"
+                  title: "Burgers of Mickey D's"
+                  amount: 5300
+                  group_id: "sSdaixpwYCCpeY4b"
+                  is_split: true
+                  done: false
+                  created_at: 1714372101
+                  deleted_at: null
+                  updated_at: 1714372101
+                lessors: [
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 4000,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "xVi3UAESJ9M2PntD",
+                    amount: 4000,
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+                lessees: [
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "7RGnEXHHtrJxPemi",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                  {
+                    split_id: "S4fbP8dRVrwA-AiK",
+                    user_id: "VQFATEpJXAT_65Qk",
+                    created_at: 1714372101,
+                    deleted_at: null,
+                    updated_at: 1714372101
+                  },
+                ]
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '422':
+          description: Validation exception
   /payments/list/{group_id}:
     get:
       tags:
         - Payments
       description: |-
         Get the information of payments.
+        For main page.
       parameters:
         - name: group_id
           in: path
@@ -330,6 +440,162 @@ components:
         done:
           type: boolean
           example: false
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    Split:
+      type: "object"
+      properties:
+        id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        title:
+          type: string
+          example: "Burgers of Mickey D's"
+        amount:
+          type: integer
+          example: 5300
+        group_id:
+          type: string
+          example: "sSdaixpwYCCpeY4b"
+        is_split:
+          type: boolean
+          example: true
+        done:
+          type: boolean
+          example: false
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    Replacement:
+      type: "object"
+      properties:
+        id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        title:
+          type: string
+          example: "Burgers of Mickey D's"
+        amount:
+          type: integer
+          example: 5300
+        group_id:
+          type: string
+          example: "sSdaixpwYCCpeY4b"
+        is_split:
+          type: boolean
+          example: true
+        done:
+          type: boolean
+          example: false
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    SplitLessor:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        amount:
+          type: integer
+          example: 4000
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    SplitLessee:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    ReplacementLessor:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        amount:
+          type: integer
+          example: 4000
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    ReplacementLessees:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
         created_at:
           type: integer
           format: int64
