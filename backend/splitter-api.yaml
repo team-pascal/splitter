@@ -49,7 +49,7 @@ paths:
                   users: 
                     type: array
                     items:
-                      $ref: "#/components/schemas/Users"
+                      $ref: "#/components/schemas/User"
               example:
                 group:
                   id: "sSdaixpwYCCpeY4b"
@@ -231,7 +231,7 @@ components:
           type: integer
           format: int64
           example: 1714372101
-    Users:
+    User:
       type: "object"
       properties:
         id:
@@ -255,4 +255,5 @@ components:
           type: integer
           format: int64
           example: 1714372101
+    
         
