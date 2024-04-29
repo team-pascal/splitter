@@ -55,7 +55,7 @@ paths:
                   id: "sSdaixpwYCCpeY4b"
                   name: "Team A"
                   created_at: 1714372101
-                  deleted_at: 1714372101
+                  deleted_at: null
                   updated_at: 1714372101
                 users: [
                   {
@@ -63,7 +63,7 @@ paths:
                     group_id: "sSdaixpwYCCpeY4b",
                     name: "Alice",
                     created_at: 1714372101,
-                    deleted_at: 1714372101,
+                    deleted_at: null,
                     updated_at: 1714372101
                   },
                   {
@@ -71,7 +71,7 @@ paths:
                     group_id: "sSdaixpwYCCpeY4b",
                     name: "Bob",
                     created_at: 1714372101,
-                    deleted_at: 1714372101,
+                    deleted_at: null,
                     updated_at: 1714372101
                   },
                   {
@@ -79,7 +79,7 @@ paths:
                     group_id: "sSdaixpwYCCpeY4b",
                     name: "Charle",
                     created_at: 1714372101,
-                    deleted_at: 1714372101,
+                    deleted_at: null,
                     updated_at: 1714372101
                   },
                   {
@@ -87,7 +87,7 @@ paths:
                     group_id: "sSdaixpwYCCpeY4b",
                     name: "Dave",
                     created_at: 1714372101,
-                    deleted_at: 1714372101,
+                    deleted_at: null,
                     updated_at: 1714372101
                   }
                 ]
@@ -255,5 +255,36 @@ components:
           type: integer
           format: int64
           example: 1714372101
-    
-        
+    Payment:
+      type: "object"
+      properties:
+        id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        title:
+          type: string
+          example: "Burgers of Mickey D's"
+        amount:
+          type: integer
+          example: 5300
+        group_id:
+          type: string
+          example: "sSdaixpwYCCpeY4b"
+        is_split:
+          type: boolean
+          example: true
+        done:
+          type: boolean
+          example: false
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
