@@ -1,0 +1,15 @@
+services:
+  app:
+    container_name: front-splitter
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    restart: always
+    tty: true
+    volumes:
+      - ./:/app
+
+volumes:
+  front-splitter:
