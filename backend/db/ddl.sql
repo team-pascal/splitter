@@ -37,7 +37,7 @@ CREATE TABLE splits (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP DEFAULT NULL,
-    title VARCHAR DEFAULT '' NOT NULL,
+    title VARCHAR NOT NULL,
     done BOOLEAN DEFAULT FALSE NOT NULL,
     FOREIGN KEY (group_id) REFERENCES groups(id)
 );
@@ -49,7 +49,7 @@ CREATE TABLE replacements (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP DEFAULT NULL,
-    title VARCHAR DEFAULT '' NOT NULL,
+    title VARCHAR NOT NULL,
     done BOOLEAN DEFAULT FALSE NOT NULL,
     FOREIGN KEY (group_id) REFERENCES groups(id)
 );
@@ -61,7 +61,7 @@ CREATE TABLE split_lessors (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP DEFAULT NULL,
-    amount BIGINT NOT NULL,
+    amount INTEGER NOT NULL,
     PRIMARY KEY (split_id, user_id),
     FOREIGN KEY (split_id) REFERENCES splits(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
@@ -86,7 +86,7 @@ CREATE TABLE replacement_lessors (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP DEFAULT NULL,
-    amount BIGINT NOT NULL,
+    amount INTEGER NOT NULL,
     PRIMARY KEY (replacement_id, user_id),
     FOREIGN KEY (replacement_id) REFERENCES replacements(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
@@ -99,7 +99,7 @@ CREATE TABLE replacement_lessees (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP DEFAULT NULL,
-    amount BIGINT NOT NULL,
+    amount INTEGER NOT NULL,
     PRIMARY KEY (replacement_id, user_id),
     FOREIGN KEY (replacement_id) REFERENCES replacements(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
