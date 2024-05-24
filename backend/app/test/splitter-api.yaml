@@ -53,46 +53,49 @@ paths:
                     items:
                       $ref: "#/components/schemas/User"
               example:
-                group:
-                  id: "sSdaixpwYCCpeY4b"
-                  name: "Team A"
-                  created_at: 1714372101
-                  deleted_at: null
-                  updated_at: 1714372101
-                users: [
-                  {
-                    id: "xVi3UAESJ9M2PntD",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Alice",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
+                {
+                  "group": {
+                      "id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "name": "Team 1",
+                      "created_at": "2024-05-24T08:20:22.042655144Z",
+                      "updated_at": "2024-05-24T08:20:22.042655226Z",
+                      "deleted_at": null
                   },
-                  {
-                    id: "c8GryJjwr863GwzH",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Bob",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
-                  },
-                  {
-                    id: "7RGnEXHHtrJxPemi",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Charle",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
-                  },
-                  {
-                    id: "VQFATEpJXAT_65Qk",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Dave",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
-                  }
-                ]
+                  "users": [
+                      {
+                          "id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "name": "Alice",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044519957Z",
+                          "updated_at": "2024-05-24T08:20:22.044520034Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "name": "Bob",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044520223Z",
+                          "updated_at": "2024-05-24T08:20:22.044520284Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "name": "Charle",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044520423Z",
+                          "updated_at": "2024-05-24T08:20:22.044520484Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "name": "Dave",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044520622Z",
+                          "updated_at": "2024-05-24T08:20:22.044520683Z",
+                          "deleted_at": null
+                      }
+                  ]
+              }
         '400':
           description: Invalid group or users
         '422':
@@ -109,7 +112,8 @@ paths:
           required: true
           schema: 
             type: string
-          example: "sSdaixpwYCCpeY4b"
+            format: uuid
+          example: "0bef5ce5-2fb0-46ed-b033-825296d80bb3"
       responses:
         '200':
           description: OK
@@ -126,44 +130,28 @@ paths:
                       $ref: "#/components/schemas/User"
               example:
                 group:
-                  id: "sSdaixpwYCCpeY4b"
-                  name: "Team A"
-                  created_at: 1714372101
+                  id: "0f22931a-aefa-4ccc-b9eb-ac24ac1c0512"
+                  name: "From Postman3"
+                  created_at: "2024-05-24T06:45:56.592543568Z"
+                  updated_at: "2024-05-24T06:45:56.592543661Z"
                   deleted_at: null
-                  updated_at: 1714372101
                 users: [
-                  {
-                    id: "xVi3UAESJ9M2PntD",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Alice",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
-                  },
-                  {
-                    id: "c8GryJjwr863GwzH",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Bob",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
-                  },
-                  {
-                    id: "7RGnEXHHtrJxPemi",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Charle",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
-                  },
-                  {
-                    id: "VQFATEpJXAT_65Qk",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Dave",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
-                  }
+                      {
+                          "id": "0b472933-dc95-4336-8d02-9d6d0a723d78",
+                          "name": "TestUser 1",
+                          "group_id": "0f22931a-aefa-4ccc-b9eb-ac24ac1c0512",
+                          "created_at": "2024-05-24T06:45:56.595439065Z",
+                          "updated_at": "2024-05-24T06:45:56.595439142Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "4dba6cd6-0541-4c77-b755-c631cb4659b2",
+                          "name": "TestUser 2",
+                          "group_id": "0f22931a-aefa-4ccc-b9eb-ac24ac1c0512",
+                          "created_at": "2024-05-24T06:45:56.595439283Z",
+                          "updated_at": "2024-05-24T06:45:56.595439329Z",
+                          "deleted_at": null
+                      }
                 ]
     patch:
       tags:
@@ -176,7 +164,8 @@ paths:
           required: true
           schema: 
             type: string
-          example: "sSdaixpwYCCpeY4b"
+            format: uuid
+          example: "0bef5ce5-2fb0-46ed-b033-825296d80bb3"
         - name: name
           in: query
           required: true
@@ -186,6 +175,17 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "Team B"
+                  updated_at:
+                    type: string
+                    format: date-time
         '400':
           description: Invalid Name
         '404':
@@ -1336,46 +1336,49 @@ components:
       properties:
         id:
           type: string
-          example: "sSdaixpwYCCpeY4b"
+          format: uuid
+          example: "ed62e2cb-05de-47d0-83bc-3ed420206c39"
         name:
           type: string
           example: Team A
         created_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
         deleted_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
         updated_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: null
     User:
       type: "object"
       properties:
         id:
           type: string
-          example: "fU3r756xLhQLhmBu"
+          format: uuid
+          example: "c9005990-c5a7-46e7-80db-9645dbad5fcb"
         group_id:
           type: string
-          example: "sSdaixpwYCCpeY4b"
+          format: uuid
+          example: "e24b64be-6245-4431-af55-e94f5a686051"
         name:
           type: string
           example: "Alice"
         created_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
         deleted_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
         updated_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: null
     Payment:
       type: "object"
       properties:
