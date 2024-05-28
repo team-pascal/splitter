@@ -204,7 +204,7 @@ paths:
           required: true
           schema: 
             type: string
-          example: "sSdaixpwYCCpeY4b"
+          example: "0bef5ce5-2fb0-46ed-b033-825296d80bb3"
         - name: name
           in: query
           required: true
@@ -221,12 +221,12 @@ paths:
                 $ref: "#/components/schemas/User"
               example:
                 {
-                  id: "fRmi9dzyRCwPYcEY",
-                  group_id: "sSdaixpwYCCpeY4b",
-                  name: "Ellen",
-                  created_at: 1714372101,
-                  deleted_at: null,
-                  updated_at: 1714372101
+                    "id": "02793ecb-c621-459a-8dc2-c7ba77173c3e",
+                    "name": "Ellen",
+                    "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                    "created_at": "2024-05-27T14:05:28.170816625Z",
+                    "updated_at": "2024-05-27T14:05:28.170816721Z",
+                    "deleted_at": null
                 }
         '400':
           description: Invalid Name
@@ -246,7 +246,8 @@ paths:
           required: true
           schema: 
             type: string
-          example: "sSdaixpwYCCpeY4b"
+            format: uuid
+          example: "e24b64be-6245-4431-af55-e94f5a686051"
       responses:
         '200':
           description: OK
@@ -259,36 +260,36 @@ paths:
               example:
                 [
                   {
-                    id: "xVi3UAESJ9M2PntD",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Alice",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
+                      "id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                      "name": "Alice",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.044519Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
                   },
                   {
-                    id: "c8GryJjwr863GwzH",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Bob",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
+                      "id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                      "name": "Bob",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.04452Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
                   },
                   {
-                    id: "7RGnEXHHtrJxPemi",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Charle",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
+                      "id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                      "name": "Charle",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.04452Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
                   },
                   {
-                    id: "VQFATEpJXAT_65Qk",
-                    group_id: "sSdaixpwYCCpeY4b",
-                    name: "Dave",
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101
+                      "id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                      "name": "Dave",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.04452Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
                   }
                 ]
         '400':
@@ -298,23 +299,23 @@ paths:
         '422':
           description: Validation exception
   /users/{user_id}:
-    delete:
-      tags:
-        - Users
-      description: |-
-        Delete an user.
-      parameters:
-        - name: user_id
-          in: path
-          required: true
-          schema: 
-            type: string
-          example: "fRmi9dzyRCwPYcEY"
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: User not found
+    # delete:
+    #   tags:
+    #     - Users
+    #   description: |-
+    #     Delete an user.
+    #   parameters:
+    #     - name: user_id
+    #       in: path
+    #       required: true
+    #       schema: 
+    #         type: string
+    #       example: "fRmi9dzyRCwPYcEY"
+    #   responses:
+    #     '200':
+    #       description: OK
+    #     '404':
+    #       description: User not found
     patch:
       tags:
         - Users
@@ -326,7 +327,7 @@ paths:
           required: true
           schema: 
             type: string
-          example: "fRmi9dzyRCwPYcEY"
+          example: "e24b64be-6245-4431-af55-e94f5a686051"
         - name: name
           in: query
           required: true
@@ -340,15 +341,16 @@ paths:
             application/json:
               schema:
                 type: object
-                $ref: "#/components/schemas/User"
+                properties:
+                  name: 
+                    type: string
+                  updated_at:
+                    type: string
+                    format: date-time
               example:
                 {
-                  id: "fRmi9dzyRCwPYcEY",
-                  group_id: "sSdaixpwYCCpeY4b",
                   name: "Frank",
-                  created_at: 1714372101,
-                  deleted_at: null,
-                  updated_at: 1714372101
+                  updated_at: "2024-05-27T14:29:02.505932Z"
                 }
         '400':
           description: Invalid Name

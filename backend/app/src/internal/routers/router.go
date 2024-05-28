@@ -16,4 +16,12 @@ func SetupRouter(r *gin.Engine, db *bun.DB) {
 		g.POST("", groupController.PostGroup)
 		g.PATCH("/:id", groupController.PatchGroup)
 	}
+
+	u := r.Group("/users")
+	{
+		userController := controllers.UserController{DB: db}
+		u.GET("/:group_id", userController.GetUser)
+		u.POST("/:group_id", userController.PostUser)
+		u.PATCH("/:user_id", userController.PatchUser)
+	}
 }

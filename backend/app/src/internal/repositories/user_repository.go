@@ -30,3 +30,12 @@ func (ur *UserRepository) Create(ctx context.Context, names []string, groupID uu
 	_, err := ur.TX.NewInsert().Model(&users).Exec(ctx)
 	return users, err
 }
+
+func (ur *UserRepository) UpdateName(ctx context.Context, name string, id string) (*models.User, error) {
+	user := new(models.User)
+	user.Name = name
+
+	_, err := ur.TX.NewUpdate().Model(user).Column("name", "updated_at").Where("id = ?", id).Exec(ctx)
+
+	return user, err
+}
