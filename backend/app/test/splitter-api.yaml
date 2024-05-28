@@ -358,7 +358,7 @@ paths:
           description: User not found
         '422':
           description: Validation exception
-  /payments/list/{group_id}:
+  /payments/{group_id}:
     get:
       tags:
         - Payments
@@ -371,7 +371,8 @@ paths:
           required: true
           schema: 
             type: string
-          example: "sSdaixpwYCCpeY4b"
+            format: uuid
+          example: "ed62e2cb-05de-47d0-83bc-3ed420206c39"
       responses:
         '200':
           description: OK
@@ -382,40 +383,51 @@ paths:
                 items:
                   $ref: "#/components/schemas/Payment"
               example: [
-                    {
-                      "id": "S4fbP8dRVrwA-AiK",
-                      "title": "Burgers of Mickey D's",
-                      "amount": 5300,
-                      "group_id": "sSdaixpwYCCpeY4b",
-                      "is_split": true,
-                      "done": false,
-                      "created_at": 1714372101,
-                      "deleted_at": null,
-                      "updated_at": 1714372101
-                    },
-                    {
-                      "id": "WFCK3Qm88RA9sDsj",
-                      "title": "Dinner in restaurant",
-                      "amount": 22000,
-                      "group_id": "sSdaixpwYCCpeY4b",
-                      "is_split": true,
-                      "done": true,
-                      "created_at": 1714372101,
-                      "deleted_at": null,
-                      "updated_at": 1714372101
-                    },
-                    {
-                      "id": "dRdJ_jJjiFK2AAwD",
-                      "title": "Snack",
-                      "amount": 300,
-                      "group_id": "sSdaixpwYCCpeY4b",
-                      "is_split": false,
-                      "done": false,
-                      "created_at": 1714372101,
-                      "deleted_at": null,
-                      "updated_at": 1714372101
-                    },
-              ]
+                        {
+                            "id": "91fcaabd-30ba-4fe6-b310-8a6a95f5ef04",
+                            "title": "Split A1",
+                            "amount": 100,
+                            "done": false,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "split",
+                            "created_at": "2024-05-22T17:06:46.132461Z",
+                            "updated_at": "2024-05-22T17:06:46.132461Z",
+                            "deleted_at": null
+                        },
+                        {
+                            "id": "9c4a819a-48e2-40ed-b013-b23b98827386",
+                            "title": "Split A2",
+                            "amount": 120,
+                            "done": true,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "split",
+                            "created_at": "2024-05-22T17:06:46.132461Z",
+                            "updated_at": "2024-05-22T17:06:46.132461Z",
+                            "deleted_at": null
+                        },
+                        {
+                            "id": "bda2f7d5-9eb5-4bb7-958f-682c8f257408",
+                            "title": "Replacement A2",
+                            "amount": 310,
+                            "done": false,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "replacement",
+                            "created_at": "2024-05-22T17:06:46.138196Z",
+                            "updated_at": "2024-05-22T17:06:46.138196Z",
+                            "deleted_at": null
+                        },
+                        {
+                            "id": "b27656ac-8ff2-4a85-b00f-2789c5717c40",
+                            "title": "Replacement A1",
+                            "amount": 300,
+                            "done": true,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "replacement",
+                            "created_at": "2024-05-22T17:06:46.138196Z",
+                            "updated_at": "2024-05-22T17:06:46.138196Z",
+                            "deleted_at": null
+                        }
+                    ]
         '400':
           description: Invalid Group ID
         '404':
@@ -1376,17 +1388,18 @@ components:
         deleted_at:
           type: string
           format: date-time
-          example: "2024-05-22T17:06:46.122814Z"
+          example: null
         updated_at:
           type: string
           format: date-time
-          example: null
+          example: "2024-05-22T17:06:46.122814Z"
     Payment:
       type: "object"
       properties:
         id:
           type: string
-          example: "S4fbP8dRVrwA-AiK"
+          format: uuid
+          example: "91fcaabd-30ba-4fe6-b310-8a6a95f5ef04"
         title:
           type: string
           example: "Burgers of Mickey D's"
@@ -1395,25 +1408,26 @@ components:
           example: 5300
         group_id:
           type: string
-          example: "sSdaixpwYCCpeY4b"
-        is_split:
-          type: boolean
-          example: true
+          format: uuid
+          example: "ed62e2cb-05de-47d0-83bc-3ed420206c39"
+        genre:
+          type: string
+          example: "split"
         done:
           type: boolean
           example: false
         created_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
         deleted_at:
-          type: integer
-          format: int64
+          type: string
+          format: date-time
           example: null
         updated_at:
-          type: integer
-          format: int64
-          example: 1714372101
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
     Split:
       type: "object"
       properties:

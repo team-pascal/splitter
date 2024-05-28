@@ -24,4 +24,10 @@ func SetupRouter(r *gin.Engine, db *bun.DB) {
 		u.POST("/:group_id", userController.PostUser)
 		u.PATCH("/:user_id", userController.PatchUser)
 	}
+
+	p := r.Group("/payments")
+	{
+		paymentController := controllers.PaymentController{DB: db}
+		p.GET("/:group_id", paymentController.GetPayment)
+	}
 }
