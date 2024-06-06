@@ -30,4 +30,15 @@ func SetupRouter(r *gin.Engine, db *bun.DB) {
 		paymentController := controllers.PaymentController{DB: db}
 		p.GET("/:group_id", paymentController.GetPayment)
 	}
+
+	s := r.Group("/splits")
+	{
+		splitController := controllers.SplitController{DB: db}
+		s.GET("/:split_id", splitController.GetSplit)
+		s.POST("", splitController.PostSplit)
+		s.PUT("/:split_id", splitController.PutSplit)
+		s.PATCH("/done/:split_id", splitController.PatchDoneSplit)
+		s.PATCH("/doing/:split_id", splitController.PatchDoingSplit)
+		s.DELETE("/:split_id", splitController.DeleteSplit)
+	}
 }
