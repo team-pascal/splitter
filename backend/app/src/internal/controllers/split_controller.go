@@ -17,29 +17,29 @@ type SplitController struct {
 	DB *bun.DB
 }
 
-type relateUser struct {
+type relatedSplitUser struct {
 	UserID string `json:"user_id"`
 	Amount int    `json:"amount"`
 }
 
-type resLessee struct {
+type resSplitLessee struct {
 	UserID    string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt bun.NullTime
 	Calc      int
 	Amount    int
-	To        []relateUser
+	To        []relatedSplitUser
 }
 
-func (rL resLessee) MarshalJSON() ([]byte, error) {
+func (rL resSplitLessee) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
-		UserID    string       `json:"user_id"`
-		CreatedAt time.Time    `json:"created_at"`
-		UpdatedAt time.Time    `json:"updated_at"`
-		DeletedAt bun.NullTime `json:"deleted_at"`
-		Amount    int          `json:"amount"`
-		To        []relateUser `json:"to"`
+		UserID    string             `json:"user_id"`
+		CreatedAt time.Time          `json:"created_at"`
+		UpdatedAt time.Time          `json:"updated_at"`
+		DeletedAt bun.NullTime       `json:"deleted_at"`
+		Amount    int                `json:"amount"`
+		To        []relatedSplitUser `json:"to"`
 	}{
 		UserID:    rL.UserID,
 		CreatedAt: rL.CreatedAt,
@@ -50,14 +50,14 @@ func (rL resLessee) MarshalJSON() ([]byte, error) {
 	})
 }
 
-type resLessor struct {
+type resSplitLessor struct {
 	UserID    string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt bun.NullTime
 	Calc      int
 	Amount    int
-	From      []relateUser
+	From      []relatedSplitUser
 }
 
 type tmpLessor struct {
@@ -72,14 +72,14 @@ type getData struct {
 	Lessees []string    `json:"lessees"`
 }
 
-func (rL resLessor) MarshalJSON() ([]byte, error) {
+func (rL resSplitLessor) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
-		UserID    string       `json:"user_id"`
-		CreatedAt time.Time    `json:"created_at"`
-		UpdatedAt time.Time    `json:"updated_at"`
-		DeletedAt bun.NullTime `json:"deleted_at"`
-		Amount    int          `json:"amount"`
-		From      []relateUser `json:"from"`
+		UserID    string             `json:"user_id"`
+		CreatedAt time.Time          `json:"created_at"`
+		UpdatedAt time.Time          `json:"updated_at"`
+		DeletedAt bun.NullTime       `json:"deleted_at"`
+		Amount    int                `json:"amount"`
+		From      []relatedSplitUser `json:"from"`
 	}{
 		UserID:    rL.UserID,
 		CreatedAt: rL.CreatedAt,
@@ -95,6 +95,7 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 	tx, err := sc.DB.BeginTx(ctx, nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	split_id := c.Param("split_id")
@@ -123,8 +124,8 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 		return
 	}
 
-	lessees := make([]resLessee, 0)
-	lessors := make([]resLessor, 0)
+	lessees := make([]resSplitLessee, 0)
+	lessors := make([]resSplitLessor, 0)
 	amount := int(split.Amount)
 	count := (len(rawLessees) + len(rawLessors))
 	ave := amount / count
@@ -135,7 +136,7 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 		if i < remainder {
 			pls = 1
 		}
-		lessees = append(lessees, resLessee{
+		lessees = append(lessees, resSplitLessee{
 			UserID:    lessee.UserID.String(),
 			CreatedAt: lessee.CreatedAt,
 			UpdatedAt: lessee.UpdatedAt,
@@ -152,7 +153,7 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 		}
 		userAmount := int(lessor.Amount) - ave - pls
 		if userAmount < 0 {
-			lessees = append(lessees, resLessee{
+			lessees = append(lessees, resSplitLessee{
 				UserID:    lessor.UserID.String(),
 				CreatedAt: lessor.CreatedAt,
 				UpdatedAt: lessor.UpdatedAt,
@@ -162,7 +163,7 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 			})
 			continue
 		}
-		lessors = append(lessors, resLessor{
+		lessors = append(lessors, resSplitLessor{
 			UserID:    lessor.UserID.String(),
 			CreatedAt: lessor.CreatedAt,
 			UpdatedAt: lessor.UpdatedAt,
@@ -182,8 +183,8 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 		}
 		if lessees[i].Calc < lessors[j].Calc {
 			debt := lessees[i].Calc
-			lessees[i].To = append(lessees[i].To, relateUser{UserID: lessors[j].UserID, Amount: debt})
-			lessors[j].From = append(lessors[j].From, relateUser{UserID: lessees[i].UserID, Amount: debt})
+			lessees[i].To = append(lessees[i].To, relatedSplitUser{UserID: lessors[j].UserID, Amount: debt})
+			lessors[j].From = append(lessors[j].From, relatedSplitUser{UserID: lessees[i].UserID, Amount: debt})
 			lessees[i].Calc -= debt
 			lessors[j].Calc -= debt
 			i++
@@ -191,8 +192,8 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 		}
 		if lessees[i].Calc > lessors[j].Calc {
 			debt := lessors[j].Calc
-			lessees[i].To = append(lessees[i].To, relateUser{UserID: lessors[j].UserID, Amount: debt})
-			lessors[j].From = append(lessors[j].From, relateUser{UserID: lessees[i].UserID, Amount: debt})
+			lessees[i].To = append(lessees[i].To, relatedSplitUser{UserID: lessors[j].UserID, Amount: debt})
+			lessors[j].From = append(lessors[j].From, relatedSplitUser{UserID: lessees[i].UserID, Amount: debt})
 			lessees[i].Calc -= debt
 			lessors[j].Calc -= debt
 			j++
@@ -200,8 +201,8 @@ func (sc *SplitController) GetSplit(c *gin.Context) {
 		}
 		if lessees[i].Calc == lessors[j].Calc {
 			debt := lessees[i].Calc
-			lessees[i].To = append(lessees[i].To, relateUser{UserID: lessors[j].UserID, Amount: debt})
-			lessors[j].From = append(lessors[j].From, relateUser{UserID: lessees[i].UserID, Amount: debt})
+			lessees[i].To = append(lessees[i].To, relatedSplitUser{UserID: lessors[j].UserID, Amount: debt})
+			lessors[j].From = append(lessors[j].From, relatedSplitUser{UserID: lessees[i].UserID, Amount: debt})
 			lessees[i].Calc -= debt
 			lessors[j].Calc -= debt
 			j++
@@ -336,6 +337,7 @@ func (sc *SplitController) PutSplit(c *gin.Context) {
 	tx, err := sc.DB.BeginTx(ctx, nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	// 1. Update split table
@@ -426,6 +428,7 @@ func (sc *SplitController) PatchDoneSplit(c *gin.Context) {
 	tx, err := sc.DB.BeginTx(ctx, nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	// 1. 'done' in splits table be changed true.
@@ -461,6 +464,7 @@ func (sc *SplitController) PatchDoingSplit(c *gin.Context) {
 	tx, err := sc.DB.BeginTx(ctx, nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	// 1. 'done' in splits table be changed false.
@@ -499,6 +503,7 @@ func (sc *SplitController) DeleteSplit(c *gin.Context) {
 	tx, err := sc.DB.BeginTx(ctx, nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	// 1. Delete the data in split_lessors where split_id in the table is equal to split_id of request path
