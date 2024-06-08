@@ -9,36 +9,47 @@ import (
 
 func SetupRouter(r *gin.Engine, db *bun.DB) {
 
-	g := r.Group("/groups")
+	groups := r.Group("/groups")
 	{
 		groupController := controllers.GroupController{DB: db}
-		g.GET("/:id", groupController.GetGroup)
-		g.POST("", groupController.PostGroup)
-		g.PATCH("/:id", groupController.PatchGroup)
+		groups.GET("/:id", groupController.GetGroup)
+		groups.POST("", groupController.PostGroup)
+		groups.PATCH("/:id", groupController.PatchGroup)
 	}
 
-	u := r.Group("/users")
+	users := r.Group("/users")
 	{
 		userController := controllers.UserController{DB: db}
-		u.GET("/:group_id", userController.GetUser)
-		u.POST("/:group_id", userController.PostUser)
-		u.PATCH("/:user_id", userController.PatchUser)
+		users.GET("/:group_id", userController.GetUser)
+		users.POST("/:group_id", userController.PostUser)
+		users.PATCH("/:user_id", userController.PatchUser)
 	}
 
-	p := r.Group("/payments")
+	payments := r.Group("/payments")
 	{
 		paymentController := controllers.PaymentController{DB: db}
-		p.GET("/:group_id", paymentController.GetPayment)
+		payments.GET("/:group_id", paymentController.GetPayment)
 	}
 
-	s := r.Group("/splits")
+	splits := r.Group("/splits")
 	{
 		splitController := controllers.SplitController{DB: db}
-		s.GET("/:split_id", splitController.GetSplit)
-		s.POST("", splitController.PostSplit)
-		s.PUT("/:split_id", splitController.PutSplit)
-		s.PATCH("/done/:split_id", splitController.PatchDoneSplit)
-		s.PATCH("/doing/:split_id", splitController.PatchDoingSplit)
-		s.DELETE("/:split_id", splitController.DeleteSplit)
+		splits.GET("/:split_id", splitController.GetSplit)
+		splits.POST("", splitController.PostSplit)
+		splits.PUT("/:split_id", splitController.PutSplit)
+		splits.PATCH("/done/:split_id", splitController.PatchDoneSplit)
+		splits.PATCH("/doing/:split_id", splitController.PatchDoingSplit)
+		splits.DELETE("/:split_id", splitController.DeleteSplit)
+	}
+
+	replacements := r.Group("/replacements")
+	{
+		replacementController := controllers.ReplacementController{DB: db}
+		replacements.GET("/:replacement_id", replacementController.GetReplacement)
+		replacements.POST("", replacementController.PostReplacement)
+		replacements.PUT("/:replacement_id", replacementController.PutReplacement)
+		replacements.PATCH("/done/:replacement_id", replacementController.PatchDoneReplacement)
+		replacements.PATCH("/doing/:replacement_id", replacementController.PatchDoingReplacement)
+		replacements.DELETE("/:replacement_id", replacementController.DeleteReplacement)
 	}
 }

@@ -829,24 +829,26 @@ paths:
                           type: integer
                           format: int64
             example:
-              title: "Snack"
-              group_id: "sSdaixpwYCCpeY4b"
-              lessors: [
-                {
-                  user_id: "xVi3UAESJ9M2PntD",
-                  amount: 300
-                }
-              ]
-              lessees: [
-                {
-                  user_id: "7RGnEXHHtrJxPemi",
-                  amount: 100
-                },
-                {
-                  user_id: "VQFATEpJXAT_65Qk",
-                  amount: 200
-                }
-              ]
+              {
+                "title": "パーティお菓子",
+                "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                "lessors": [
+                  {
+                    "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                    "amount": 1000
+                  }
+                ],
+                "lessees": [
+                  {
+                    "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                    "amount": 500
+                  },
+                  {
+                    "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                    "amount": 500
+                  }
+                ]
+              }
       responses:
         '200':
           description: OK
@@ -866,65 +868,54 @@ paths:
                     items:
                       $ref: "#/components/schemas/ReplacementLessee"
               example:
-                split:
-                  id: "dRdJ_jJjiFK2AAwD"
-                  title: "Burgers of Mickey D's"
-                  amount: 300
-                  group_id: "sSdaixpwYCCpeY4b"
-                  done: false
-                  created_at: 1714372101
-                  deleted_at: null
-                  updated_at: 1714372101
-                lessors: [
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "xVi3UAESJ9M2PntD",
-                    amount: 300,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    from: [
+                {
+                  "lessees": [
                       {
-                        user_id: "7RGnEXHHtrJxPemi",
-                        amount: 100
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "amount": 600,
+                          "created_at": "2024-06-08T10:08:40.948369956Z",
+                          "updated_at": "2024-06-08T10:08:40.948370035Z",
+                          "deleted_at": null
                       },
                       {
-                        user_id: "VQFATEpJXAT_65Qk",
-                        amount: 200
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "amount": 1600,
+                          "created_at": "2024-06-08T10:08:40.948370143Z",
+                          "updated_at": "2024-06-08T10:08:40.948370188Z",
+                          "deleted_at": null
                       }
-                    ]
+                  ],
+                  "lessors": [
+                      {
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "amount": 1000,
+                          "created_at": "2024-06-08T10:08:40.947872531Z",
+                          "updated_at": "2024-06-08T10:08:40.947872586Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "amount": 1200,
+                          "created_at": "2024-06-08T10:08:40.947872706Z",
+                          "updated_at": "2024-06-08T10:08:40.947872748Z",
+                          "deleted_at": null
+                      }
+                  ],
+                  "replacement": {
+                      "id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                      "title": "パーティお菓子",
+                      "amount": 2200,
+                      "done": false,
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-06-08T10:08:40.947440961Z",
+                      "updated_at": "2024-06-08T10:08:40.947441032Z",
+                      "deleted_at": null
                   }
-                ]
-                lessees: [
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "7RGnEXHHtrJxPemi",
-                    amount: 100,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    to: [
-                      {
-                        user_id: "xVi3UAESJ9M2PntD",
-                        amount: 100
-                      }
-                    ]
-                  },
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "VQFATEpJXAT_65Qk",
-                    amount: 200,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    to: [
-                      {
-                        user_id: "xVi3UAESJ9M2PntD",
-                        amount: 200
-                      }
-                    ]
-                  },
-                ]
+                }
         '400':
           description: Invalid Split, Lessors or Lessees
         '422':
@@ -941,7 +932,7 @@ paths:
           required: true
           schema: 
             type: string
-          example: "dRdJ_jJjiFK2AAwD"
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
       responses:
         '200':
           description: OK
@@ -961,65 +952,82 @@ paths:
                     items:
                       $ref: "#/components/schemas/ReplacementLessee"
               example:
-                split:
-                  id: "dRdJ_jJjiFK2AAwD"
-                  title: "Burgers of Mickey D's"
-                  amount: 300
-                  group_id: "sSdaixpwYCCpeY4b"
-                  done: false
-                  created_at: 1714372101
-                  deleted_at: null
-                  updated_at: 1714372101
-                lessors: [
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "xVi3UAESJ9M2PntD",
-                    amount: 300,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    from: [
+                {
+                  "lessees": [
                       {
-                        user_id: "7RGnEXHHtrJxPemi",
-                        amount: 100
+                          "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "created_at": "2024-06-08T10:08:40.94837Z",
+                          "updated_at": "2024-06-08T10:08:40.94837Z",
+                          "deleted_at": null,
+                          "amount": 1600,
+                          "to": [
+                              {
+                                  "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                                  "amount": 1200
+                              },
+                              {
+                                  "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                                  "amount": 400
+                              }
+                          ]
                       },
                       {
-                        user_id: "VQFATEpJXAT_65Qk",
-                        amount: 200
+                          "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "created_at": "2024-06-08T10:08:40.948369Z",
+                          "updated_at": "2024-06-08T10:08:40.94837Z",
+                          "deleted_at": null,
+                          "amount": 600,
+                          "to": [
+                              {
+                                  "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                                  "amount": 600
+                              }
+                          ]
                       }
-                    ]
+                  ],
+                  "lessors": [
+                      {
+                          "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "created_at": "2024-06-08T10:08:40.947872Z",
+                          "updated_at": "2024-06-08T10:08:40.947872Z",
+                          "deleted_at": null,
+                          "amount": 1200,
+                          "from": [
+                              {
+                                  "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                                  "amount": 1200
+                              }
+                          ]
+                      },
+                      {
+                          "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "created_at": "2024-06-08T10:08:40.947872Z",
+                          "updated_at": "2024-06-08T10:08:40.947872Z",
+                          "deleted_at": null,
+                          "amount": 1000,
+                          "from": [
+                              {
+                                  "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                                  "amount": 400
+                              },
+                              {
+                                  "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                                  "amount": 600
+                              }
+                          ]
+                      }
+                  ],
+                  "replacement": {
+                      "id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                      "title": "パーティお菓子",
+                      "amount": 2200,
+                      "done": false,
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-06-08T10:08:40.94744Z",
+                      "updated_at": "2024-06-08T10:08:40.947441Z",
+                      "deleted_at": null
                   }
-                ]
-                lessees: [
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "7RGnEXHHtrJxPemi",
-                    amount: 100,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    to: [
-                      {
-                        user_id: "xVi3UAESJ9M2PntD",
-                        amount: 100
-                      }
-                    ]
-                  },
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "VQFATEpJXAT_65Qk",
-                    amount: 200,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    to: [
-                      {
-                        user_id: "xVi3UAESJ9M2PntD",
-                        amount: 200
-                      }
-                    ]
-                  },
-                ]
+                }
         '404':
           description: Replacement not found
     delete:
@@ -1033,7 +1041,7 @@ paths:
           required: true
           schema: 
             type: string
-          example: "dRdJ_jJjiFK2AAwD"
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
       responses:
         '200':
           description: OK
@@ -1051,7 +1059,7 @@ paths:
           required: true
           schema: 
             type: string
-          example: "dRdJ_jJjiFK2AAwD"
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
       requestBody:
         content:
           application/json:
@@ -1083,102 +1091,31 @@ paths:
                           type: integer
                           format: int64
             example:
-              title: "Snack"
-              group_id: "sSdaixpwYCCpeY4b"
-              lessors: [
-                {
-                  user_id: "xVi3UAESJ9M2PntD",
-                  amount: 300
-                }
-              ]
-              lessees: [
-                {
-                  user_id: "7RGnEXHHtrJxPemi",
-                  amount: 100
-                },
-                {
-                  user_id: "VQFATEpJXAT_65Qk",
-                  amount: 200
-                }
-              ]
+              {
+                "lessors": [
+                  {
+                    "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                    "amount": 800
+                  },
+                  {
+                      "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                      "amount": 1400
+                  }
+                ],
+                "lessees": [
+                  {
+                    "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                    "amount": 600
+                  },
+                  {
+                    "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                    "amount": 1600
+                  }
+                ]
+              }
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  split:
-                    $ref: "#/components/schemas/Replacement"
-                  lessors:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/ReplacementLessor"
-                  lessees:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/ReplacementLessee"
-              example:
-                split:
-                  id: "dRdJ_jJjiFK2AAwD"
-                  title: "Burgers of Mickey D's"
-                  amount: 300
-                  group_id: "sSdaixpwYCCpeY4b"
-                  done: false
-                  created_at: 1714372101
-                  deleted_at: null
-                  updated_at: 1714372101
-                lessors: [
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "xVi3UAESJ9M2PntD",
-                    amount: 300,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    from: [
-                      {
-                        user_id: "7RGnEXHHtrJxPemi",
-                        amount: 100
-                      },
-                      {
-                        user_id: "VQFATEpJXAT_65Qk",
-                        amount: 200
-                      }
-                    ]
-                  }
-                ]
-                lessees: [
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "7RGnEXHHtrJxPemi",
-                    amount: 100,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    to: [
-                      {
-                        user_id: "xVi3UAESJ9M2PntD",
-                        amount: 100
-                      }
-                    ]
-                  },
-                  {
-                    split_id: "dRdJ_jJjiFK2AAwD",
-                    user_id: "VQFATEpJXAT_65Qk",
-                    amount: 200,
-                    created_at: 1714372101,
-                    deleted_at: null,
-                    updated_at: 1714372101,
-                    to: [
-                      {
-                        user_id: "xVi3UAESJ9M2PntD",
-                        amount: 200
-                      }
-                    ]
-                  },
-                ]
         '400':
           description: Invalid Split, Lessors or Lessees
         '404':
@@ -1197,7 +1134,7 @@ paths:
           required: true
           schema: 
             type: string
-          example: "dRdJ_jJjiFK2AAwD"
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
       responses:
         '200':
           description: OK
@@ -1219,7 +1156,7 @@ paths:
           required: true
           schema: 
             type: string
-          example: "dRdJ_jJjiFK2AAwD"
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
       responses:
         '200':
           description: OK
