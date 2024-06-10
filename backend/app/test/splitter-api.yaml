@@ -1,0 +1,1404 @@
+openapi: "3.0.3"
+info:
+  title: Splitter API
+  version: '1.0'
+  description: |-
+    This is a Splitter API
+tags:
+  - name: Groups
+  - name: Users
+  - name: Payments
+  - name: Splits
+  - name: Replacements
+paths:
+  /groups:
+    post:
+      tags:
+        - Groups
+      description: |-
+        Register the group and splitter members.
+        For top page.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                users:
+                  type: array
+                  items:
+                    type: string
+            example:
+              name: "Team 1"
+              users: [
+                "Alice",
+                "Bob",
+                "Charle",
+                "Dave"
+              ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: "#/components/schemas/Group"
+                  users: 
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+              example:
+                {
+                  "group": {
+                      "id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "name": "Team 1",
+                      "created_at": "2024-05-24T08:20:22.042655144Z",
+                      "updated_at": "2024-05-24T08:20:22.042655226Z",
+                      "deleted_at": null
+                  },
+                  "users": [
+                      {
+                          "id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "name": "Alice",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044519957Z",
+                          "updated_at": "2024-05-24T08:20:22.044520034Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "name": "Bob",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044520223Z",
+                          "updated_at": "2024-05-24T08:20:22.044520284Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "name": "Charle",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044520423Z",
+                          "updated_at": "2024-05-24T08:20:22.044520484Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "name": "Dave",
+                          "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                          "created_at": "2024-05-24T08:20:22.044520622Z",
+                          "updated_at": "2024-05-24T08:20:22.044520683Z",
+                          "deleted_at": null
+                      }
+                  ]
+              }
+        '400':
+          description: Invalid group or users
+        '422':
+          description: Validation exception
+  /groups/{group_id}:
+    get:
+      tags:
+        - Groups
+      description: |-
+        Get information of group.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+            format: uuid
+          example: "0bef5ce5-2fb0-46ed-b033-825296d80bb3"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: "#/components/schemas/Group"
+                  users: 
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+              example:
+                group:
+                  id: "0f22931a-aefa-4ccc-b9eb-ac24ac1c0512"
+                  name: "From Postman3"
+                  created_at: "2024-05-24T06:45:56.592543568Z"
+                  updated_at: "2024-05-24T06:45:56.592543661Z"
+                  deleted_at: null
+                users: [
+                      {
+                          "id": "0b472933-dc95-4336-8d02-9d6d0a723d78",
+                          "name": "TestUser 1",
+                          "group_id": "0f22931a-aefa-4ccc-b9eb-ac24ac1c0512",
+                          "created_at": "2024-05-24T06:45:56.595439065Z",
+                          "updated_at": "2024-05-24T06:45:56.595439142Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "id": "4dba6cd6-0541-4c77-b755-c631cb4659b2",
+                          "name": "TestUser 2",
+                          "group_id": "0f22931a-aefa-4ccc-b9eb-ac24ac1c0512",
+                          "created_at": "2024-05-24T06:45:56.595439283Z",
+                          "updated_at": "2024-05-24T06:45:56.595439329Z",
+                          "deleted_at": null
+                      }
+                ]
+    patch:
+      tags:
+        - Groups
+      description: |-
+        Change name of group.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+            format: uuid
+          example: "0bef5ce5-2fb0-46ed-b033-825296d80bb3"
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Team B"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "Team B"
+                  updated_at:
+                    type: string
+                    format: date-time
+        '400':
+          description: Invalid Name
+        '404':
+          description: group not found
+        '422':
+          description: Validation exception
+  /users/{group_id}:
+    post:
+      tags:
+        - Users
+      description: |-
+        Add an user in the group.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "0bef5ce5-2fb0-46ed-b033-825296d80bb3"
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Ellen"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/User"
+              example:
+                {
+                    "id": "02793ecb-c621-459a-8dc2-c7ba77173c3e",
+                    "name": "Ellen",
+                    "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                    "created_at": "2024-05-27T14:05:28.170816625Z",
+                    "updated_at": "2024-05-27T14:05:28.170816721Z",
+                    "deleted_at": null
+                }
+        '400':
+          description: Invalid Name
+        '404':
+          description: group not found
+        '422':
+          description: Validation exception
+    get:
+      tags:
+       - Users
+      description: |-
+        Get list of users.
+        For register page.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+            format: uuid
+          example: "e24b64be-6245-4431-af55-e94f5a686051"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+              example:
+                [
+                  {
+                      "id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                      "name": "Alice",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.044519Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
+                  },
+                  {
+                      "id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                      "name": "Bob",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.04452Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
+                  },
+                  {
+                      "id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                      "name": "Charle",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.04452Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
+                  },
+                  {
+                      "id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                      "name": "Dave",
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-05-24T08:20:22.04452Z",
+                      "updated_at": "2024-05-24T08:20:22.04452Z",
+                      "deleted_at": null
+                  }
+                ]
+        '400':
+          description: Invalid Group ID
+        '404':
+          description: Users of group not found
+        '422':
+          description: Validation exception
+  /users/{user_id}:
+    # delete:
+    #   tags:
+    #     - Users
+    #   description: |-
+    #     Delete an user.
+    #   parameters:
+    #     - name: user_id
+    #       in: path
+    #       required: true
+    #       schema: 
+    #         type: string
+    #       example: "fRmi9dzyRCwPYcEY"
+    #   responses:
+    #     '200':
+    #       description: OK
+    #     '404':
+    #       description: User not found
+    patch:
+      tags:
+        - Users
+      description: |-
+        Update the information of an user.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "e24b64be-6245-4431-af55-e94f5a686051"
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Frank"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                  updated_at:
+                    type: string
+                    format: date-time
+              example:
+                {
+                  name: "Frank",
+                  updated_at: "2024-05-27T14:29:02.505932Z"
+                }
+        '400':
+          description: Invalid Name
+        '404':
+          description: User not found
+        '422':
+          description: Validation exception
+  /payments/{group_id}:
+    get:
+      tags:
+        - Payments
+      description: |-
+        Get the information of payments.
+        For main page.
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema: 
+            type: string
+            format: uuid
+          example: "ed62e2cb-05de-47d0-83bc-3ed420206c39"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Payment"
+              example: [
+                        {
+                            "id": "91fcaabd-30ba-4fe6-b310-8a6a95f5ef04",
+                            "title": "Split A1",
+                            "amount": 100,
+                            "done": false,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "split",
+                            "created_at": "2024-05-22T17:06:46.132461Z",
+                            "updated_at": "2024-05-22T17:06:46.132461Z",
+                            "deleted_at": null
+                        },
+                        {
+                            "id": "9c4a819a-48e2-40ed-b013-b23b98827386",
+                            "title": "Split A2",
+                            "amount": 120,
+                            "done": true,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "split",
+                            "created_at": "2024-05-22T17:06:46.132461Z",
+                            "updated_at": "2024-05-22T17:06:46.132461Z",
+                            "deleted_at": null
+                        },
+                        {
+                            "id": "bda2f7d5-9eb5-4bb7-958f-682c8f257408",
+                            "title": "Replacement A2",
+                            "amount": 310,
+                            "done": false,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "replacement",
+                            "created_at": "2024-05-22T17:06:46.138196Z",
+                            "updated_at": "2024-05-22T17:06:46.138196Z",
+                            "deleted_at": null
+                        },
+                        {
+                            "id": "b27656ac-8ff2-4a85-b00f-2789c5717c40",
+                            "title": "Replacement A1",
+                            "amount": 300,
+                            "done": true,
+                            "group_id": "ed62e2cb-05de-47d0-83bc-3ed420206c39",
+                            "genre": "replacement",
+                            "created_at": "2024-05-22T17:06:46.138196Z",
+                            "updated_at": "2024-05-22T17:06:46.138196Z",
+                            "deleted_at": null
+                        }
+                    ]
+        '400':
+          description: Invalid Group ID
+        '404':
+          description: Group not found
+        '422':
+          description: Validation exception
+  /splits:
+    post:
+      tags:
+        - Splits
+      description: |-
+        Register the payment information.
+        For register payment page.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: string
+            example:
+              {
+                "title": "Test 割り切れない",
+                "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                "lessors": [
+                  {
+                    "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                    "amount": 3000
+                  },
+                  {
+                    "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                    "amount": 1222
+                  }
+                ],
+                "lessees": [
+                  "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                  "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e"
+                ]
+              }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Split"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessee"
+              example:
+                {
+                  "lessees": [
+                      {
+                          "split_id": "3f37d24c-22da-4761-a042-b794e1e0a219",
+                          "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "created_at": "2024-06-05T10:37:39.325386908Z",
+                          "updated_at": "2024-06-05T10:37:39.32538702Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "split_id": "3f37d24c-22da-4761-a042-b794e1e0a219",
+                          "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "created_at": "2024-06-05T10:37:39.325387155Z",
+                          "updated_at": "2024-06-05T10:37:39.325387197Z",
+                          "deleted_at": null
+                      }
+                  ],
+                  "lessors": [
+                      {
+                          "split_id": "3f37d24c-22da-4761-a042-b794e1e0a219",
+                          "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "amount": 3000,
+                          "created_at": "2024-06-05T10:37:39.32139128Z",
+                          "updated_at": "2024-06-05T10:37:39.321391434Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "split_id": "3f37d24c-22da-4761-a042-b794e1e0a219",
+                          "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "amount": 1222,
+                          "created_at": "2024-06-05T10:37:39.3213916Z",
+                          "updated_at": "2024-06-05T10:37:39.321391663Z",
+                          "deleted_at": null
+                      }
+                  ],
+                  "split": {
+                      "id": "3f37d24c-22da-4761-a042-b794e1e0a219",
+                      "title": "Test 割り切れない",
+                      "amount": 4222,
+                      "done": false,
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-06-05T10:37:39.30075005Z",
+                      "updated_at": "2024-06-05T10:37:39.300750154Z",
+                      "deleted_at": null
+                  }
+                }
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '422':
+          description: Validation exception
+  /splits/{split_id}:
+    get:
+      tags:
+        - Splits
+      description: |-
+        Get the information of splits.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "3f37d24c-22da-4761-a042-b794e1e0a219"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Split"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SplitLessee"
+              example:
+                {
+                  "lessees": [
+                      {
+                          "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "created_at": "2024-06-05T10:37:39.321391Z",
+                          "updated_at": "2024-06-05T10:37:39.321391Z",
+                          "deleted_at": null,
+                          "amount": 3000,
+                          "from": [
+                              {
+                                  "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                                  "amount": 1056
+                              },
+                              {
+                                  "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                                  "amount": 889
+                              }
+                          ]
+                      },
+                      {
+                          "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "created_at": "2024-06-05T10:37:39.321391Z",
+                          "updated_at": "2024-06-05T10:37:39.321391Z",
+                          "deleted_at": null,
+                          "amount": 1222,
+                          "from": [
+                              {
+                                  "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                                  "amount": 167
+                              }
+                          ]
+                      }
+                  ],
+                  "lessors": [
+                      {
+                          "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "created_at": "2024-06-05T10:37:39.325386Z",
+                          "updated_at": "2024-06-05T10:37:39.325387Z",
+                          "deleted_at": null,
+                          "amount": 0,
+                          "to": [
+                              {
+                                  "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                                  "amount": 1056
+                              }
+                          ]
+                      },
+                      {
+                          "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "created_at": "2024-06-05T10:37:39.325387Z",
+                          "updated_at": "2024-06-05T10:37:39.325387Z",
+                          "deleted_at": null,
+                          "amount": 0,
+                          "to": [
+                              {
+                                  "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                                  "amount": 889
+                              },
+                              {
+                                  "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                                  "amount": 167
+                              }
+                          ]
+                      }
+                  ],
+                  "split": {
+                      "amount": 4222,
+                      "average": 1055,
+                      "created_at": "2024-06-05T10:37:39.30075Z",
+                      "deleted_at": null,
+                      "done": false,
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "id": "3f37d24c-22da-4761-a042-b794e1e0a219",
+                      "remainder": 2,
+                      "title": "Test 割り切れない",
+                      "updated_at": "2024-06-05T10:37:39.30075Z"
+                  }
+                }
+        '404':
+          description: Split not found
+    delete:
+      tags:
+        - Splits
+      description: |-
+        Delete the information of splits.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "3f37d24c-22da-4761-a042-b794e1e0a219"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Split not found
+    put:
+      tags:
+        - Splits
+      description: |-
+        Update the payment information.
+        For update payment page.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "3f37d24c-22da-4761-a042-b794e1e0a219"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: string
+            example:
+              {
+                "title": "Mc",
+                "lessors": [
+                  {
+                    "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                    "amount": 4000
+                  },
+                  {
+                    "user_id": "02793ecb-c621-459a-8dc2-c7ba77173c3e",
+                    "amount": 1222
+                  }
+                ],
+                "lessees": [
+                  "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                  "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                  "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e"
+                ]
+              }
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '404':
+          description: Split not found
+        '422':
+          description: Validation exception
+  /splits/done/{split_id}:
+    patch: 
+      tags:
+        - Splits
+      description: |-
+        Finish split money.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "3f37d24c-22da-4761-a042-b794e1e0a219"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid Split ID
+        '404':
+          description: Split not found
+        '422':
+          description: Validation exception
+  /splits/doing/{split_id}:
+    patch: 
+      tags:
+        - Splits
+      description: |-
+        Unfinish split money.
+      parameters:
+        - name: split_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "3f37d24c-22da-4761-a042-b794e1e0a219"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid Split ID
+        '404':
+          description: Split not found
+        '422':
+          description: Validation exception
+  /replacements:
+    post:
+      tags:
+        - Replacements
+      description: |-
+        Register the payment of replacement information.
+        For register payment page.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+            example:
+              {
+                "title": "パーティお菓子",
+                "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                "lessors": [
+                  {
+                    "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                    "amount": 1000
+                  }
+                ],
+                "lessees": [
+                  {
+                    "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                    "amount": 500
+                  },
+                  {
+                    "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                    "amount": 500
+                  }
+                ]
+              }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Replacement"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessee"
+              example:
+                {
+                  "lessees": [
+                      {
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "amount": 600,
+                          "created_at": "2024-06-08T10:08:40.948369956Z",
+                          "updated_at": "2024-06-08T10:08:40.948370035Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "amount": 1600,
+                          "created_at": "2024-06-08T10:08:40.948370143Z",
+                          "updated_at": "2024-06-08T10:08:40.948370188Z",
+                          "deleted_at": null
+                      }
+                  ],
+                  "lessors": [
+                      {
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "amount": 1000,
+                          "created_at": "2024-06-08T10:08:40.947872531Z",
+                          "updated_at": "2024-06-08T10:08:40.947872586Z",
+                          "deleted_at": null
+                      },
+                      {
+                          "split_id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                          "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "amount": 1200,
+                          "created_at": "2024-06-08T10:08:40.947872706Z",
+                          "updated_at": "2024-06-08T10:08:40.947872748Z",
+                          "deleted_at": null
+                      }
+                  ],
+                  "replacement": {
+                      "id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                      "title": "パーティお菓子",
+                      "amount": 2200,
+                      "done": false,
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-06-08T10:08:40.947440961Z",
+                      "updated_at": "2024-06-08T10:08:40.947441032Z",
+                      "deleted_at": null
+                  }
+                }
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '422':
+          description: Validation exception
+  /replacements/{replacement_id}:
+    get:
+      tags:
+        - Replacements
+      description: |-
+        Get the information of Replacements.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  split:
+                    $ref: "#/components/schemas/Replacement"
+                  lessors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessor"
+                  lessees:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReplacementLessee"
+              example:
+                {
+                  "lessees": [
+                      {
+                          "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                          "created_at": "2024-06-08T10:08:40.94837Z",
+                          "updated_at": "2024-06-08T10:08:40.94837Z",
+                          "deleted_at": null,
+                          "amount": 1600,
+                          "to": [
+                              {
+                                  "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                                  "amount": 1200
+                              },
+                              {
+                                  "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                                  "amount": 400
+                              }
+                          ]
+                      },
+                      {
+                          "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                          "created_at": "2024-06-08T10:08:40.948369Z",
+                          "updated_at": "2024-06-08T10:08:40.94837Z",
+                          "deleted_at": null,
+                          "amount": 600,
+                          "to": [
+                              {
+                                  "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                                  "amount": 600
+                              }
+                          ]
+                      }
+                  ],
+                  "lessors": [
+                      {
+                          "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                          "created_at": "2024-06-08T10:08:40.947872Z",
+                          "updated_at": "2024-06-08T10:08:40.947872Z",
+                          "deleted_at": null,
+                          "amount": 1200,
+                          "from": [
+                              {
+                                  "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                                  "amount": 1200
+                              }
+                          ]
+                      },
+                      {
+                          "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                          "created_at": "2024-06-08T10:08:40.947872Z",
+                          "updated_at": "2024-06-08T10:08:40.947872Z",
+                          "deleted_at": null,
+                          "amount": 1000,
+                          "from": [
+                              {
+                                  "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                                  "amount": 400
+                              },
+                              {
+                                  "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                                  "amount": 600
+                              }
+                          ]
+                      }
+                  ],
+                  "replacement": {
+                      "id": "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c",
+                      "title": "パーティお菓子",
+                      "amount": 2200,
+                      "done": false,
+                      "group_id": "e24b64be-6245-4431-af55-e94f5a686051",
+                      "created_at": "2024-06-08T10:08:40.94744Z",
+                      "updated_at": "2024-06-08T10:08:40.947441Z",
+                      "deleted_at": null
+                  }
+                }
+        '404':
+          description: Replacement not found
+    delete:
+      tags:
+        - Replacements
+      description: |-
+        Delete the information of Replacements.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Replacement not found
+    put:
+      tags:
+        - Replacements
+      description: |-
+        Update the payment of replacement information.
+        For Update payment page.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                group_id:
+                  type: string
+                lessors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+                lessees:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        user_id:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int64
+            example:
+              {
+                "lessors": [
+                  {
+                    "user_id": "06ced02a-262b-42bf-9c12-75892a6f4f21",
+                    "amount": 800
+                  },
+                  {
+                      "user_id": "1db3aae5-9d16-4f57-9c07-73a6dbf9b67e",
+                      "amount": 1400
+                  }
+                ],
+                "lessees": [
+                  {
+                    "user_id": "c9005990-c5a7-46e7-80db-9645dbad5fcb",
+                    "amount": 600
+                  },
+                  {
+                    "user_id": "d8708c83-0bc7-449e-b4c0-2ca8775cb72e",
+                    "amount": 1600
+                  }
+                ]
+              }
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid Split, Lessors or Lessees
+        '404':
+          description: Replacement not found
+        '422':
+          description: Validation exception
+  /replacements/done/{replacement_id}:
+    patch: 
+      tags:
+        - Replacements
+      description: |-
+        Finish replacement money.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid replacement ID
+        '404':
+          description: Replacement not found
+        '422':
+          description: Validation exception
+  /replacements/doing/{replacement_id}:
+    patch: 
+      tags:
+        - Replacements
+      description: |-
+        Unfinish split money.
+      parameters:
+        - name: replacemnet_id
+          in: path
+          required: true
+          schema: 
+            type: string
+          example: "4e5c8f10-21ba-42cb-8fed-4c37e3c3198c"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid replacement ID
+        '404':
+          description: Replacement not found
+        '422':
+          description: Validation exception
+
+components:
+  schemas:
+    Group:
+      type: "object"
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "ed62e2cb-05de-47d0-83bc-3ed420206c39"
+        name:
+          type: string
+          example: Team A
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
+        deleted_at:
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: null
+    User:
+      type: "object"
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "c9005990-c5a7-46e7-80db-9645dbad5fcb"
+        group_id:
+          type: string
+          format: uuid
+          example: "e24b64be-6245-4431-af55-e94f5a686051"
+        name:
+          type: string
+          example: "Alice"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
+        deleted_at:
+          type: string
+          format: date-time
+          example: null
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
+    Payment:
+      type: "object"
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "91fcaabd-30ba-4fe6-b310-8a6a95f5ef04"
+        title:
+          type: string
+          example: "Burgers of Mickey D's"
+        amount:
+          type: integer
+          example: 5300
+        group_id:
+          type: string
+          format: uuid
+          example: "ed62e2cb-05de-47d0-83bc-3ed420206c39"
+        genre:
+          type: string
+          example: "split"
+        done:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
+        deleted_at:
+          type: string
+          format: date-time
+          example: null
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-05-22T17:06:46.122814Z"
+    Split:
+      type: "object"
+      properties:
+        id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        title:
+          type: string
+          example: "Burgers of Mickey D's"
+        amount:
+          type: integer
+          example: 5300
+        group_id:
+          type: string
+          example: "sSdaixpwYCCpeY4b"
+        done:
+          type: boolean
+          example: false
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    Replacement:
+      type: "object"
+      properties:
+        id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        title:
+          type: string
+          example: "Burgers of Mickey D's"
+        amount:
+          type: integer
+          example: 5300
+        group_id:
+          type: string
+          example: "sSdaixpwYCCpeY4b"
+        done:
+          type: boolean
+          example: false
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    SplitLessor:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        amount:
+          type: integer
+          example: 4000
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    SplitLessee:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    ReplacementLessor:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        amount:
+          type: integer
+          example: 4000
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
+    ReplacementLessee:
+      type: object
+      properties:
+        split_id:
+          type: string
+          example: "S4fbP8dRVrwA-AiK"
+        user_id:
+          type: string
+          example: "fU3r756xLhQLhmBu"
+        created_at:
+          type: integer
+          format: int64
+          example: 1714372101
+        deleted_at:
+          type: integer
+          format: int64
+          example: null
+        updated_at:
+          type: integer
+          format: int64
+          example: 1714372101
