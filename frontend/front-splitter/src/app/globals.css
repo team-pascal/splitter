@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-color: #2b2828;
+}
+
+body {
+  color: white;
+  background: var(--background-color);
+}
+
+.main {
+  @apply flex flex-col items-center justify-between bg-custom-bg rounded-xl border border-custom-border p-4 md:p-10 shadow-lg;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+}
