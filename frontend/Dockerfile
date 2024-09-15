@@ -1,7 +1,9 @@
-FROM node:lts-alpine
+FROM node:20.17-alpine3.19
 WORKDIR /app/front-splitter
 
-RUN yarn install
+COPY front-splitter/package.json front-splitter/package-lock.json ./
+RUN npm install
 
-COPY . .
-CMD [ "yarn", "dev" ]
+COPY front-splitter/ ./
+
+CMD [ "npm", "run", "dev" ]
