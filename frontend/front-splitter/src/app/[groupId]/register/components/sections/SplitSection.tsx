@@ -1,8 +1,8 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { FormInput } from '@/app/[groupId]/register/Index';
-import { Select } from '@/app/ui/register/Select';
-import { InputLabel } from '@/app/ui/common/InputLabel';
+import { Select } from '@/app/[groupId]/register/components/Select';
 import CloseIcon from '@mui/icons-material/Close';
+import { InputLabel } from '@/components/InputLabel';
+import { FormInput } from '../../types';
 
 export function SplitSection() {
   const {

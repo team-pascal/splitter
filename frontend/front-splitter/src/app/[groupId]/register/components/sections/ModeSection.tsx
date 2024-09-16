@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { InAdvanceSection } from './InAdvanceSection';
 import { PaymentSection } from './PaymentSection';
 import { SplitSection } from './SplitSection';
-import { Mode } from '@/app/types/type';
+import { Mode } from '@/types';
 
 type Props = {
   paymentMode: Mode;

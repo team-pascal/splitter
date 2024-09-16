@@ -1,5 +1,5 @@
-import { Index } from './Index';
+import { HistoryList } from './components/history/HistoryList';
 
 export default function Home() {
-  return <Index />;
+  return <HistoryList />;
 }

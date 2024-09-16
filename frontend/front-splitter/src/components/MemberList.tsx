@@ -1,4 +1,4 @@
-import { Member } from '../../ui/common/Member';
+import { Member } from '@/components/Member';
 import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {

@@ -1,3 +1,4 @@
+import { ErrorText } from '@/components/ErrorText';
 import {
   FieldError,
   FieldValues,
@@ -5,14 +6,13 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from 'react-hook-form';
-import { ErrorText } from '@/app/components/signUp/ErrorText';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
   type: string;
   children?: React.ReactNode;
   register?: UseFormRegister<T>;
-  validation?: RegisterOptions;
+  validation?: RegisterOptions<T, Path<T>>;
   error?: FieldError;
   onChange?: (value: string) => void;
 };
