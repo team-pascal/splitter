@@ -4,6 +4,7 @@ import (
 	"context"
 	"splitter/internal/models"
 
+	"github.com/google/uuid"
 	"github.com/uptrace/bun"
 )
 
@@ -11,7 +12,7 @@ type PaymentRepository struct {
 	TX *bun.Tx
 }
 
-func (pr *PaymentRepository) FindByGroupID(ctx context.Context, group_id string) ([]models.Payment, error) {
+func (pr *PaymentRepository) FindByGroupID(ctx context.Context, groupID uuid.UUID) ([]models.Payment, error) {
 
 	// SQL
 
@@ -26,8 +27,8 @@ func (pr *PaymentRepository) FindByGroupID(ctx context.Context, group_id string)
 
 	defer pr.TX.NewDropTable().Model((*models.Payment)(nil)).IfExists().Exec(ctx)
 
-	selectSplitQuery := pr.TX.NewSelect().Model((*models.Split)(nil)).ColumnExpr("*, 'split' AS genre").Where("group_id = ?", group_id)
-	selectRepacementQuery := pr.TX.NewSelect().Model((*models.Replacement)(nil)).ColumnExpr("*, 'replacement' AS genre").Where("group_id = ?", group_id)
+	selectSplitQuery := pr.TX.NewSelect().Model((*models.Split)(nil)).ColumnExpr("*, 'split' AS genre").Where("group_id = ?", groupID)
+	selectRepacementQuery := pr.TX.NewSelect().Model((*models.Replacement)(nil)).ColumnExpr("*, 'replacement' AS genre").Where("group_id = ?", groupID)
 
 	unionQuery := selectSplitQuery.Union(selectRepacementQuery)
 

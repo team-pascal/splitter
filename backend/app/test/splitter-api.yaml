@@ -299,23 +299,6 @@ paths:
         '422':
           description: Validation exception
   /users/{user_id}:
-    # delete:
-    #   tags:
-    #     - Users
-    #   description: |-
-    #     Delete an user.
-    #   parameters:
-    #     - name: user_id
-    #       in: path
-    #       required: true
-    #       schema: 
-    #         type: string
-    #       example: "fRmi9dzyRCwPYcEY"
-    #   responses:
-    #     '200':
-    #       description: OK
-    #     '404':
-    #       description: User not found
     patch:
       tags:
         - Users
@@ -337,27 +320,12 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  name: 
-                    type: string
-                  updated_at:
-                    type: string
-                    format: date-time
-              example:
-                {
-                  name: "Frank",
-                  updated_at: "2024-05-27T14:29:02.505932Z"
-                }
         '400':
           description: Invalid Name
         '404':
-          description: User not found
-        '422':
-          description: Validation exception
+          description: Not found
+        '500':
+          description: Sever Error
   /payments/{group_id}:
     get:
       tags:

@@ -7,9 +7,9 @@ import (
 	"github.com/uptrace/bun"
 )
 
-func SetupRouter(r *gin.Engine, db *bun.DB) {
+func SetupRouter(router *gin.Engine, db *bun.DB) {
 
-	groups := r.Group("/groups")
+	groups := router.Group("/groups")
 	{
 		groupController := controllers.GroupController{DB: db}
 		groups.GET("/:id", groupController.GetGroup)
@@ -17,7 +17,7 @@ func SetupRouter(r *gin.Engine, db *bun.DB) {
 		groups.PATCH("/:id", groupController.PatchGroup)
 	}
 
-	users := r.Group("/users")
+	users := router.Group("/users")
 	{
 		userController := controllers.UserController{DB: db}
 		users.GET("/:group_id", userController.GetUser)
@@ -25,13 +25,13 @@ func SetupRouter(r *gin.Engine, db *bun.DB) {
 		users.PATCH("/:user_id", userController.PatchUser)
 	}
 
-	payments := r.Group("/payments")
+	payments := router.Group("/payments")
 	{
 		paymentController := controllers.PaymentController{DB: db}
 		payments.GET("/:group_id", paymentController.GetPayment)
 	}
 
-	splits := r.Group("/splits")
+	splits := router.Group("/splits")
 	{
 		splitController := controllers.SplitController{DB: db}
 		splits.GET("/:split_id", splitController.GetSplit)
@@ -42,7 +42,7 @@ func SetupRouter(r *gin.Engine, db *bun.DB) {
 		splits.DELETE("/:split_id", splitController.DeleteSplit)
 	}
 
-	replacements := r.Group("/replacements")
+	replacements := router.Group("/replacements")
 	{
 		replacementController := controllers.ReplacementController{DB: db}
 		replacements.GET("/:replacement_id", replacementController.GetReplacement)
