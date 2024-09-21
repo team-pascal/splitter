@@ -12,7 +12,7 @@ body {
 }
 
 .main {
-  @apply flex flex-col items-center justify-between bg-custom-bg rounded-xl border border-custom-border p-4 md:p-10 shadow-lg;
+  @apply flex flex-col items-center justify-between bg-custom-bg rounded-xl border border-custom-border p-4 md:p-10 shadow-lg container mx-auto px-5 md:px-14;
 }
 
 @layer utilities {

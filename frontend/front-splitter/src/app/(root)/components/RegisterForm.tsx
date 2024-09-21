@@ -1,18 +1,14 @@
 'use client';
 
-import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
-import { Input } from '@/app/ui/common/Input';
-import CloseIcon from '@mui/icons-material/Close';
-import { InputLabel } from '@/app/ui/common/InputLabel';
 import { useState } from 'react';
-import { ErrorText } from './ErrorText';
+import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
+import CloseIcon from '@mui/icons-material/Close';
+import { FormInput } from '../types';
+import { Input } from '@/components/Input';
+import { InputLabel } from '@/components/InputLabel';
+import { ErrorText } from '@/components/ErrorText';
 
-export type FormInput = {
-  teamName: string;
-  members: { name: string }[];
-};
-
-export function Form() {
+export function RegisterForm() {
   const [isMemberNumError, setIsMemberNumError] = useState(false);
 
   const {

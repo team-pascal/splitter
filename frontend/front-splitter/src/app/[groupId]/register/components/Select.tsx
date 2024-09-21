@@ -1,5 +1,5 @@
-import { ErrorText } from '@/app/components/signUp/ErrorText';
-import { MemberContext } from '@/app/context/home';
+import { ErrorText } from '@/components/ErrorText';
+import { MemberContext } from '@/context';
 import { useContext } from 'react';
 import {
   FieldError,
@@ -12,7 +12,7 @@ import {
 type Props<T extends FieldValues> = {
   name: Path<T>;
   register?: UseFormRegister<T>;
-  validation?: RegisterOptions;
+  validation?: RegisterOptions<T, Path<T>>;
   error?: FieldError;
 };
 

@@ -1,11 +1,11 @@
-import { InputLabel } from '@/app/ui/common/InputLabel';
-import { Select } from '@/app/ui/register/Select';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { FormInput } from '@/app/[groupId]/register/Index';
-import { Input } from '@/app/ui/common/Input';
+import { Select } from '@/app/[groupId]/register/components/Select';
 import CloseIcon from '@mui/icons-material/Close';
+import { InputLabel } from '@/components/InputLabel';
+import { Input } from '@/components/Input';
+import { FormInput } from '../../types';
 
-export function PaymentSection() {
+export function InAdvanceSection() {
   const {
     register,
     formState: { errors },
@@ -18,7 +18,7 @@ export function PaymentSection() {
     remove: removeMember,
   } = useFieldArray({
     control,
-    name: 'paymentMembers',
+    name: 'inAdvanceMembers',
   });
 
   const {
@@ -27,23 +27,24 @@ export function PaymentSection() {
     remove: removeCost,
   } = useFieldArray({
     control,
-    name: 'paymentCost',
+    name: 'inAdvanceCost',
   });
 
   return (
-    <>
+    <div className="pt-10">
       <div className="grid grid-cols-2 gap-16">
         <div>
-          <InputLabel label="支払い" />
-          {memberFields.map((field, index) => (
+          <InputLabel label="建て替えてもらう" />
+          {memberFields.map((fields, index) => (
             <div key={index} className="pb-2">
               <Select
-                name={`paymentMembers.${index}.name`}
+                key={index}
+                name={`inAdvanceMembers.${index}.name`}
                 register={register}
                 validation={{
-                  required: '支払ったメンバーを選択してね！',
+                  required: '建て替えてもらったメンバーを選択してね！',
                 }}
-                error={errors?.paymentMembers?.[index]?.name}
+                error={errors?.inAdvanceMembers?.[index]?.name}
               />
             </div>
           ))}
@@ -55,10 +56,10 @@ export function PaymentSection() {
               <div key={index} className="pb-2 flex-1 pr-2">
                 <Input
                   type="number"
-                  name={`paymentCost.${index}.cost`}
+                  name={`inAdvanceCost.${index}.cost`}
                   register={register}
-                  validation={{ required: '支払った金額を入力してね！' }}
-                  error={errors?.paymentCost?.[index]?.cost}
+                  validation={{ required: '建て替えた金額を入力してね！' }}
+                  error={errors?.inAdvanceCost?.[index]?.cost}
                 >
                   <p className="text-base leading-0">円</p>
                 </Input>
@@ -87,6 +88,6 @@ export function PaymentSection() {
       >
         +メンバーを追加する
       </button>
-    </>
+    </div>
   );
 }

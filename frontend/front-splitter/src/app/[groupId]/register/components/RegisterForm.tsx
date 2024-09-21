@@ -1,27 +1,18 @@
 'use client';
 
-import { Input } from '../../ui/common/Input';
-import { ModeSection } from '../../components/home/register/ModeSection';
 import { useState } from 'react';
-import { Mode, PaymentInfo } from '@/app/types/type';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { InputLabel } from '@/app/ui/common/InputLabel';
-
-export type FormInput = {
-  title: string;
-  cost: string;
-  paymentMembers: { name: string }[];
-  paymentCost: { cost: string }[];
-  splitMembers: { name: string }[];
-  inAdvanceMembers: { name: string }[];
-  inAdvanceCost: { cost: string }[];
-};
+import { Input } from '@/components/Input';
+import { InputLabel } from '@/components/InputLabel';
+import { FormInput } from '../types';
+import { Mode, PaymentInfo } from '@/types';
+import { ModeSection } from './sections/ModeSection';
 
 type Props = {
   memberList: Array<PaymentInfo>;
 };
 
-export function Index({ memberList }: Props) {
+export function RegisterForm({ memberList }: Props) {
   const [paymentMode, setPaymentMode] = useState<Mode>('split');
   const methods = useForm<FormInput>({
     defaultValues: {
