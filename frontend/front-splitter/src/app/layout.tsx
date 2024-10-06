@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google';
-
 import '../styles/globals.css';
+import { ToastContainer } from 'react-toastify';
+
 import { Header } from '@/components/Header';
 
 import type { Metadata } from 'next';
@@ -23,6 +24,14 @@ export default function RootLayout({
         <header>
           <Header />
         </header>
+        <ToastContainer
+          position='top-right'
+          autoClose={4000}
+          hideProgressBar={true}
+          pauseOnHover
+          draggable
+          pauseOnFocusLoss
+        />
         <main className='container mx-auto px-5 md:px-14'>{children}</main>
       </body>
     </html>

@@ -20,7 +20,7 @@ services:
       - splitter-db:/var/lib/postgresql/data
       - ./db/ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
     ports:
-      - 5432:5432
+      - 5431:5432
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres

@@ -3,15 +3,20 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { ErrorText } from '@/components/ErrorText';
 import { Input } from '@/components/Input';
 import { InputLabel } from '@/components/InputLabel';
 
-import { FormInput } from '../types';
+import { createRequestBody } from '../../logic/sing-up/createRequestBody';
+import { FormInput } from '../../types/sing-up/top.type';
+import { useRouter } from 'next/navigation';
+import { GroupResponse } from '@/types/groups.type';
 
 export function RegisterForm() {
   const [isMemberNumError, setIsMemberNumError] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -30,18 +35,37 @@ export function RegisterForm() {
     name: 'members',
   });
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (fields.length < 2) {
       setIsMemberNumError(true);
-    } else {
-      console.log('OK!!');
+      return;
     }
-    console.log(data);
+
+    const request = createRequestBody(data);
+
+    try {
+      const response = await fetch('api/groups', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(request),
+      });
+
+      const responseData: GroupResponse = await response.json();
+
+      if (response.ok) {
+        router.replace(responseData.group.id);
+      } else {
+        toast.error('グループ作成に失敗しました。。');
+      }
+    } catch {
+      toast.error('グループ作成に失敗しました。。');
+    }
   };
 
   return (
     <form
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit(onSubmit)}
       className='flex min-w-full flex-col'
     >

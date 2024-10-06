@@ -17,7 +17,9 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.53.0"
+    "react-hook-form": "^7.53.0",
+    "react-toastify": "^10.0.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -25,10 +27,12 @@
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^8.8.0",
     "@typescript-eslint/parser": "^8.8.0",
+    "axios": "^1.7.7",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.14",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react-hook-form": "^0.3.0",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "eslint-plugin-unused-imports": "^4.1.4",
     "postcss": "^8",

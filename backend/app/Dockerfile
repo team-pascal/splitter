@@ -5,3 +5,5 @@ RUN apk update && apk add git
 WORKDIR /app
 
 COPY ./src/ /app/
+
+CMD ["go", "run", "cmd/main.go"]

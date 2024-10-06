@@ -6,16 +6,24 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:tailwindcss/recommended",
+    "plugin:react-hook-form/recommended",
     "prettier"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "tailwindcss", "unused-imports"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "tailwindcss",
+    "unused-imports",
+    "react-hook-form"
+  ],
   "rules": {
     "tailwindcss/classnames-order": "error",
     "unused-imports/no-unused-imports": "error",
     "import/newline-after-import": "error",
+    "@typescript-eslint/no-misused-promises": "off",
     "import/order": [
       "error",
       {

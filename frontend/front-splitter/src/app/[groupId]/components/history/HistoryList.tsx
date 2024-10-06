@@ -66,16 +66,16 @@ const sampleData = [
   },
 ];
 
-export function HistoryList() {
-  const styles = {
-    p: 'text-sm md:text-base',
-  };
+interface Props {
+  groupId: string;
+}
 
+export function HistoryList({ groupId }: Props) {
   return (
     <div className='min-w-full'>
       <div className='mb-2 flex justify-between text-gray-300'>
-        <p className={styles.p}>履歴</p>
-        <a className={styles.p}>もっと見る &gt;</a>
+        <p className='text-sm md:text-base'>履歴</p>
+        <a className='text-sm md:text-base'>もっと見る &gt;</a>
       </div>
       {sampleData.map((data, index) => (
         <HistoryItem
