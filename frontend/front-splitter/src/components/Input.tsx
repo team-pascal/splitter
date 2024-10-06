@@ -1,4 +1,3 @@
-import { ErrorText } from '@/components/ErrorText';
 import {
   FieldError,
   FieldValues,
@@ -6,6 +5,8 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from 'react-hook-form';
+
+import { ErrorText } from '@/components/ErrorText';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
@@ -22,11 +23,11 @@ export function Input<T extends FieldValues>(props: Props<T>) {
 
   return (
     <>
-      <div className="flex flex-row border-b-2 border-gray-300 mb-2 items-center">
+      <div className='mb-2 flex flex-row items-center border-b-2 border-gray-300'>
         <input
           type={type}
           id={name}
-          className="bg-transparent outline-none text-white block grow py-2 leading-none md: text-lg"
+          className='md: block grow bg-transparent py-2 text-lg leading-none text-white outline-none'
           {...(register && register(name, validation))}
           onChange={(e) => onChange && onChange(e.target.value)}
         />

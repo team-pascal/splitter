@@ -1,12 +1,14 @@
 'use client';
 
+import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
-import CloseIcon from '@mui/icons-material/Close';
-import { FormInput } from '../types';
+
+import { ErrorText } from '@/components/ErrorText';
 import { Input } from '@/components/Input';
 import { InputLabel } from '@/components/InputLabel';
-import { ErrorText } from '@/components/ErrorText';
+
+import { FormInput } from '../types';
 
 export function RegisterForm() {
   const [isMemberNumError, setIsMemberNumError] = useState(false);
@@ -39,14 +41,15 @@ export function RegisterForm() {
 
   return (
     <form
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit(onSubmit)}
-      className="min-w-full flex flex-col"
+      className='flex min-w-full flex-col'
     >
-      <div className="pb-10">
-        <InputLabel label="チーム" />
+      <div className='pb-10'>
+        <InputLabel label='チーム' />
         <Input
-          name="teamName"
-          type="text"
+          name='teamName'
+          type='text'
           register={register}
           validation={{
             required: 'チーム名を入力してね！',
@@ -58,13 +61,13 @@ export function RegisterForm() {
           error={errors.teamName}
         />
       </div>
-      <InputLabel label="メンバー" />
+      <InputLabel label='メンバー' />
       <ul>
         {fields.map((field, index) => (
-          <div key={field.id} className="pb-2">
+          <div key={field.id} className='pb-2'>
             <Input
               name={`members.${index}.name`}
-              type="text"
+              type='text'
               register={register}
               validation={{
                 required: 'ニックネームを入力してね！',
@@ -76,7 +79,7 @@ export function RegisterForm() {
               error={errors?.members?.[index]?.name}
             >
               <CloseIcon
-                fontSize="large"
+                fontSize='large'
                 onClick={() => fields.length !== 1 && remove(index)}
                 style={{ color: '#929292' }}
               />
@@ -85,26 +88,26 @@ export function RegisterForm() {
         ))}
       </ul>
       {isMemberNumError && (
-        <div className="pb-2">
-          <ErrorText errorText="メンバーの数が足りないよ！？最低2人は必要だね！" />
+        <div className='pb-2'>
+          <ErrorText errorText='メンバーの数が足りないよ！？最低2人は必要だね！' />
         </div>
       )}
       <div>
         <button
-          type="button"
+          type='button'
           onClick={() => {
             append({ name: '' });
             setIsMemberNumError(false);
           }}
-          className="text-gray-300 "
+          className='text-gray-300 '
         >
           +メンバーを追加する
         </button>
       </div>
-      <div className="pt-20 w-full">
+      <div className='w-full pt-20'>
         <button
-          className=" bg-custom-btn hover:bg-custom-btnhover rounded-3xl py-4 px-8 font-bold border-2 border-custom-btnborder w-full shadow-xl"
-          type="submit"
+          className=' w-full rounded-3xl border-2 border-custom-btnborder bg-custom-btn px-8 py-4 font-bold shadow-xl hover:bg-custom-btnhover'
+          type='submit'
         >
           登録
         </button>

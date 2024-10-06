@@ -1,5 +1,3 @@
-import { ErrorText } from '@/components/ErrorText';
-import { MemberContext } from '@/context';
 import { useContext } from 'react';
 import {
   FieldError,
@@ -8,6 +6,9 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from 'react-hook-form';
+
+import { ErrorText } from '@/components/ErrorText';
+import { MemberContext } from '@/context';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
@@ -25,9 +26,9 @@ export function Select<T extends FieldValues>(props: Props<T>) {
       <select
         id={name}
         {...(register && register(name, validation))}
-        className="bg-transparent outline-none border-b-2 border-gray-300 text-white block w-full py-2  mb-2 md: text-lg"
+        className='md: mb-2 block w-full border-b-2 border-gray-300 bg-transparent py-2  text-lg text-white outline-none'
       >
-        <option value=""></option>
+        <option value=''></option>
         {memberList.map((member, index) => (
           <option key={index} value={member.name}>
             {member.name}

@@ -6,11 +6,11 @@ type Props = {
   path: string;
 };
 
-export function RegistrationBtn({ contentText, register, path }: Props) {
+export function RegistrationBtn({ contentText, path }: Props) {
   return (
     <Link
       href={path}
-      className="bg-transparent hover:bg-gray-300 rounded-3xl shadow-xl py-2 px-8 font-bold border-4 border-gray-400"
+      className='rounded-3xl border-4 border-gray-400 bg-transparent px-8 py-2 font-bold shadow-xl hover:bg-gray-300'
     >
       {contentText}
     </Link>

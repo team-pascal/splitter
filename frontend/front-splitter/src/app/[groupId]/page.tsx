@@ -1,5 +1,14 @@
 import { HistoryList } from './components/history/HistoryList';
 
-export default function Home() {
-  return <HistoryList />;
+interface Params {
+  params: { groupId: string };
+}
+
+export default function Home({ params }: Params) {
+  const { groupId } = params;
+  return (
+    <>
+      <HistoryList groupId={groupId} />
+    </>
+  );
 }

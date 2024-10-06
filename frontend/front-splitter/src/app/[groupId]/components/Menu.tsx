@@ -1,10 +1,10 @@
 'use client';
 
+import AddCardIcon from '@mui/icons-material/AddCard';
+import HistoryIcon from '@mui/icons-material/History';
+import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import HomeIcon from '@mui/icons-material/Home';
-import HistoryIcon from '@mui/icons-material/History';
-import AddCardIcon from '@mui/icons-material/AddCard';
 
 const styles = {
   div: 'basis-1/3 text-center bg-custom-btn hover:bg-custom-btnhover border border-custom-btnborder p-2 mx-2 md:mx-10 rounded-full shadow-sm',
@@ -18,13 +18,13 @@ export function Menu() {
   const personalPattern = new RegExp('^/[^/]+/personal-history$');
 
   return (
-    <ul className="inline-flex justify-center bg-custom-bg rounded-full border border-custom-border p-2 md:p-4 shadow-lg">
+    <ul className='inline-flex justify-center rounded-full border border-custom-border bg-custom-bg p-2 shadow-lg md:p-4'>
       <li>
         <Link
-          href="/test"
-          className={`font-medium text-xl ${
+          href='/test'
+          className={`text-xl font-medium ${
             homePattern.test(currentPath)
-              ? 'text-white font-black'
+              ? 'font-black text-white'
               : 'text-gray-400'
           }`}
         >
@@ -40,10 +40,10 @@ export function Menu() {
       </li>
       <li>
         <Link
-          href="/test/register"
-          className={`font-medium text-xl ${
+          href='/test/register'
+          className={`text-xl font-medium ${
             registPattern.test(currentPath)
-              ? 'text-white font-black'
+              ? 'font-black text-white'
               : 'text-gray-400'
           }`}
         >
@@ -59,10 +59,10 @@ export function Menu() {
       </li>
       <li>
         <Link
-          href="/test"
-          className={`font-medium text-xl cursor-pointer ${
+          href='/test'
+          className={`cursor-pointer text-xl font-medium ${
             personalPattern.test(currentPath)
-              ? 'text-white font-black'
+              ? 'font-black text-white'
               : 'text-gray-400'
           }`}
         >

@@ -1,5 +1,6 @@
-import { Member } from '@/components/Member';
 import CloseIcon from '@mui/icons-material/Close';
+
+import { Member } from '@/components/Member';
 
 type Props = {
   memberList: string[];
@@ -11,12 +12,12 @@ export function MemberList({ memberList, deleteMember }: Props) {
     deleteMember(member);
   };
   return (
-    <div className="mt-10 mb-16 min-w-full">
-      <p className="mb-5 text-center text-xl">{memberList.length}人</p>
+    <div className='mb-16 mt-10 min-w-full'>
+      <p className='mb-5 text-center text-xl'>{memberList.length}人</p>
       {memberList.map((member, index) => (
         <Member key={index} member={member}>
           <CloseIcon
-            fontSize="large"
+            fontSize='large'
             onClick={() => handleDeleteMember(member)}
             style={{ color: '#929292' }}
           />

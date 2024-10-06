@@ -5,8 +5,8 @@ type Props = {
 
 export function Member({ member, children }: Props) {
   return (
-    <div className="flex flex-row border-b-2 border-gray-300 mb-6">
-      <p className="grow text-lg flex items-center">{member}</p>
+    <div className='mb-6 flex flex-row border-b-2 border-gray-300'>
+      <p className='flex grow items-center text-lg'>{member}</p>
       {children}
     </div>
   );
