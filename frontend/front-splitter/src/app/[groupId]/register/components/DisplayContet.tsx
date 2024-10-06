@@ -5,8 +5,8 @@ type Props = {
 
 export function DisplayContent({ name, children }: Props) {
   return (
-    <div className="flex flex-row border-b-2 border-gray-300 items-center">
-      <p className=" text-gray-600 text-lg grow">{name}</p>
+    <div className='flex flex-row items-center border-b-2 border-gray-300'>
+      <p className=' grow text-lg text-gray-600'>{name}</p>
       {children}
     </div>
   );

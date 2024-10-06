@@ -72,8 +72,8 @@ export function HistoryList() {
   };
 
   return (
-    <div className="min-w-full">
-      <div className="flex justify-between mb-2 text-gray-300">
+    <div className='min-w-full'>
+      <div className='mb-2 flex justify-between text-gray-300'>
         <p className={styles.p}>履歴</p>
         <a className={styles.p}>もっと見る &gt;</a>
       </div>

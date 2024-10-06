@@ -1,18 +1,17 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 'use client';
 
 import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+
 import { Input } from '@/components/Input';
 import { InputLabel } from '@/components/InputLabel';
-import { Mode, PaymentInfo } from '@/types';
-import { FormInput } from '../types';
+import { Mode } from '@/types';
+
 import { ModeSection } from '../register/components/sections/ModeSection';
+import { FormInput } from '../types';
 
-type Props = {
-  memberList: Array<PaymentInfo>;
-};
-
-export default function RegisterForm({ memberList }: Props) {
+export default function RegisterForm() {
   const [paymentMode, setPaymentMode] = useState<Mode>('split');
   const methods = useForm<FormInput>({
     defaultValues: {
@@ -32,12 +31,12 @@ export default function RegisterForm({ memberList }: Props) {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className="min-w-full">
-        <div className="pb-10">
-          <InputLabel label="タイトル" />
+      <form onSubmit={methods.handleSubmit(onSubmit)} className='min-w-full'>
+        <div className='pb-10'>
+          <InputLabel label='タイトル' />
           <Input
-            name="title"
-            type="text"
+            name='title'
+            type='text'
             register={methods.register}
             validation={{
               required: 'タイトルを入力してね！',
@@ -50,10 +49,10 @@ export default function RegisterForm({ memberList }: Props) {
           />
         </div>
         <div>
-          <InputLabel label="金額" />
+          <InputLabel label='金額' />
           <Input
-            name="cost"
-            type="number"
+            name='cost'
+            type='number'
             register={methods.register}
             validation={{
               required: '金額を入力してね！',
@@ -67,8 +66,8 @@ export default function RegisterForm({ memberList }: Props) {
           paymentMode={paymentMode}
           setPaymentMode={setPaymentMode}
         />
-        <div className="flex justify-end">
-          <button className="px-4 py-2 border-2 rounded-md" type="submit">
+        <div className='flex justify-end'>
+          <button className='rounded-md border-2 px-4 py-2' type='submit'>
             保存
           </button>
         </div>

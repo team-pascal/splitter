@@ -5,7 +5,7 @@ type Props = {
   fare: string;
   createdAt: string;
 };
-export function HistoryItem({ id, status, title, fare, createdAt }: Props) {
+export function HistoryItem({ status, title, fare, createdAt }: Props) {
   const styles = {
     status: 'py-1 px-3 md:px-4 rounded-2xl text-xs md:text-sm text-white',
   };
@@ -14,16 +14,16 @@ export function HistoryItem({ id, status, title, fare, createdAt }: Props) {
     : styles.status + ' bg-red-500';
 
   return (
-    <div className="flex bg-custom-btn hover:bg-custom-btnhover border-2 border-custom-btnborder rounded-2xl cursor-pointer py-2 px-3 md:py-4 md:px-6 mb-4">
-      <div className="content-center mr-3 md:mr-10">
+    <div className='mb-4 flex cursor-pointer rounded-2xl border-2 border-custom-btnborder bg-custom-btn px-3 py-2 hover:bg-custom-btnhover md:px-6 md:py-4'>
+      <div className='mr-3 content-center md:mr-10'>
         <p className={statusStyle}>{status ? '対応済' : '未対応'}</p>
       </div>
-      <div className="grow ">
-        <p className="text-sm md:text-xl mb-1">{title}</p>
-        <p className="text-xs md:text-base text-gray-300">{createdAt}</p>
+      <div className='grow '>
+        <p className='mb-1 text-sm md:text-xl'>{title}</p>
+        <p className='text-xs text-gray-300 md:text-base'>{createdAt}</p>
       </div>
-      <div className="content-center ml-5">
-        <p className="text-base md:text-2xl font-semibold text-white">
+      <div className='ml-5 content-center'>
+        <p className='text-base font-semibold text-white md:text-2xl'>
           {fare}円
         </p>
       </div>

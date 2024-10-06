@@ -1,6 +1,7 @@
 import { sampleMemberList } from '@/data/memberList';
-import RegisterForm from '../components/RegisterForm';
 import { PaymentInfo } from '@/types';
+
+import RegisterForm from '../components/RegisterForm';
 
 export default function Register() {
   // fetch member

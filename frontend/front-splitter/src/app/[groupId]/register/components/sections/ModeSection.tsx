@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
+
+import { Mode } from '@/types';
+
 import { InAdvanceSection } from './InAdvanceSection';
 import { PaymentSection } from './PaymentSection';
 import { SplitSection } from './SplitSection';
-import { Mode } from '@/types';
 
 type Props = {
   paymentMode: Mode;
@@ -12,9 +14,9 @@ type Props = {
 export function ModeSection({ paymentMode, setPaymentMode }: Props) {
   return (
     <div>
-      <div className="flex justify-center gap-x-10 py-16">
+      <div className='flex justify-center gap-x-10 py-16'>
         <p
-          className={`text-lg cursor-pointer ${
+          className={`cursor-pointer text-lg ${
             paymentMode === 'inAdvance' ? 'opacity-25' : null
           }`}
           onClick={() => setPaymentMode('split')}
@@ -22,7 +24,7 @@ export function ModeSection({ paymentMode, setPaymentMode }: Props) {
           割り勘
         </p>
         <p
-          className={`text-lg cursor-pointer ${
+          className={`cursor-pointer text-lg ${
             paymentMode === 'split' ? 'opacity-25' : null
           }`}
           onClick={() => setPaymentMode('inAdvance')}
