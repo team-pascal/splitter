@@ -1,6 +1,7 @@
 'use client';
 
 import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -8,11 +9,10 @@ import { toast } from 'react-toastify';
 import { ErrorText } from '@/components/ErrorText';
 import { Input } from '@/components/Input';
 import { InputLabel } from '@/components/InputLabel';
+import { GroupResponse } from '@/types/groups.type';
 
 import { createRequestBody } from '../../logic/sing-up/createRequestBody';
 import { FormInput } from '../../types/sing-up/top.type';
-import { useRouter } from 'next/navigation';
-import { GroupResponse } from '@/types/groups.type';
 
 export function RegisterForm() {
   const [isMemberNumError, setIsMemberNumError] = useState(false);
@@ -52,7 +52,7 @@ export function RegisterForm() {
         body: JSON.stringify(request),
       });
 
-      const responseData: GroupResponse = await response.json();
+      const responseData = (await response.json()) as GroupResponse;
 
       if (response.ok) {
         router.replace(responseData.group.id);

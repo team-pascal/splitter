@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Failed to fetch:', error);
     return NextResponse.json(
-      { message: 'Failed to create grouo' },
+      { message: 'Failed to create group' },
       { status: 500 },
     );
   }

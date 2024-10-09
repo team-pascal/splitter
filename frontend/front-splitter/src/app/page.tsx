@@ -1,4 +1,4 @@
-import { RegisterForm } from '../components/sing-up/RegisterForm';
+import { RegisterForm } from '../components/singUp/RegisterForm';
 
 export default function SingUp() {
   return <RegisterForm />;

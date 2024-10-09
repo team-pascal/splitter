@@ -70,7 +70,22 @@ interface Props {
   groupId: string;
 }
 
-export function HistoryList({ groupId }: Props) {
+export async function HistoryList({ groupId }: Props) {
+  try {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_BASE_URL +
+        `/api/payments?groupId=${encodeURIComponent(groupId)}`,
+    );
+
+    if (response.ok) {
+      // console.log(response);
+    } else {
+      // console.error('Failed to fetch history data');
+    }
+  } catch {
+    // console.error('Failed to fetch history data');
+  }
+
   return (
     <div className='min-w-full'>
       <div className='mb-2 flex justify-between text-gray-300'>
