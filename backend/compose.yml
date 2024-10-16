@@ -10,6 +10,9 @@ services:
     tty: true
     ports:
       - 3001:3000
+    networks:
+      - splitter-network
+
   db:
     build:
       context: ./db/
@@ -40,3 +43,7 @@ services:
 volumes:
   splitter-db:
   splitter-pgadmin:
+
+networks:
+  splitter-network:
+    external: true
