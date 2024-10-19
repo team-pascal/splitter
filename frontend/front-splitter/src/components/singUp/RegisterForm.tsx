@@ -12,7 +12,7 @@ import { InputLabel } from '@/components/InputLabel';
 import { GroupResponse } from '@/types/groups.type';
 
 import { createRequestBody } from '../../logic/sing-up/createRequestBody';
-import { FormInput } from '../../types/sing-up/top.type';
+import { FormInput } from '../../types/singUp/top.type';
 
 export function RegisterForm() {
   const [isMemberNumError, setIsMemberNumError] = useState(false);

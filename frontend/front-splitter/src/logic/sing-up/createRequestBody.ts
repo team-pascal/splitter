@@ -1,6 +1,6 @@
 import { GroupRequest } from '@/types/groups.type';
 
-import { FormInput } from '../../types/sing-up/top.type';
+import { FormInput } from '../../types/singUp/top.type';
 
 export const createRequestBody = (data: FormInput): GroupRequest => {
   return {

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import Link from 'next/link';
 
-import { History } from '@/types/history';
+import { History } from '@/types/history.type';
 
 import { HistoryItem } from './HistoryItem';
 
@@ -37,13 +38,15 @@ export async function HistoryList({ groupId }: Props) {
       ) : (
         <>
           {historyItems.map((data, index) => (
-            <HistoryItem
-              key={index}
-              status={data.done}
-              title={data.title}
-              amount={data.amount}
-              createdAt={data.created_at}
-            />
+            <Link key={index} href={`${groupId}/${data.genre}/${data.id}`}>
+              <HistoryItem
+                key={index}
+                status={data.done}
+                title={data.title}
+                amount={data.amount}
+                createdAt={data.created_at}
+              />
+            </Link>
           ))}
         </>
       )}
