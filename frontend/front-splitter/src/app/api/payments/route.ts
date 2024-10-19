@@ -7,8 +7,6 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const groupId = url.searchParams.get('groupId');
 
-    console.log(groupId);
-
     if (!groupId) {
       return NextResponse.json(
         { message: 'Invalid request body' },
@@ -19,8 +17,7 @@ export async function GET(request: Request) {
     const response = await axiosInstance.get('payments/' + groupId);
 
     return NextResponse.json(response.data, { status: 200 });
-  } catch (error) {
-    console.error('Failed to fetch:', error);
+  } catch {
     return NextResponse.json(
       { message: 'Failed to fetch group-data' },
       { status: 500 },

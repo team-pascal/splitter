@@ -6,11 +6,5 @@ interface Params {
 
 export default function Home({ params }: Params) {
   const { groupId } = params;
-  console.log(groupId);
-  return (
-    <>
-      <HistoryList groupId={groupId} />
-      <h1>test</h1>
-    </>
-  );
+  return <HistoryList groupId={groupId} />;
 }

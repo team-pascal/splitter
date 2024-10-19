@@ -1,90 +1,30 @@
-import { HistoryItem } from './HistoryItem';
+import axios from 'axios';
 
-const sampleData = [
-  {
-    id: 1,
-    status: false,
-    title: 'ガソリン代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 2,
-    status: false,
-    title: 'おやつ代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 3,
-    status: true,
-    title: 'お昼代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 4,
-    status: false,
-    title: 'ガソリン代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 5,
-    status: false,
-    title: 'おやつ代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 6,
-    status: true,
-    title: 'お昼代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 7,
-    status: false,
-    title: 'ガソリン代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 8,
-    status: false,
-    title: 'おやつ代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-  {
-    id: 9,
-    status: true,
-    title: 'お昼代',
-    fare: '4000',
-    createdAt: '2024/5/2 13:32',
-  },
-];
+import { History } from '@/types/history';
+
+import { HistoryItem } from './HistoryItem';
 
 interface Props {
   groupId: string;
 }
 
-export async function HistoryList({ groupId }: Props) {
+async function fetchHistoryItems(groupId: string): Promise<History[]> {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_API_BASE_URL +
-        `/api/payments?groupId=${encodeURIComponent(groupId)}`,
+    const response = await axios.get<History[]>(
+      'http://localhost:3000/api/payments',
+      {
+        params: { groupId },
+      },
     );
-
-    if (response.ok) {
-      // console.log(response);
-    } else {
-      // console.error('Failed to fetch history data');
-    }
-  } catch {
-    // console.error('Failed to fetch history data');
+    return response.data;
+  } catch (e) {
+    console.error('Failed to fetch history data: ', e);
+    return [];
   }
+}
+
+export async function HistoryList({ groupId }: Props) {
+  const historyItems: History[] = await fetchHistoryItems(groupId);
 
   return (
     <div className='min-w-full'>
@@ -92,16 +32,21 @@ export async function HistoryList({ groupId }: Props) {
         <p className='text-sm md:text-base'>履歴</p>
         <a className='text-sm md:text-base'>もっと見る &gt;</a>
       </div>
-      {sampleData.map((data, index) => (
-        <HistoryItem
-          key={index}
-          id={data.id}
-          status={data.status}
-          title={data.title}
-          fare={data.fare}
-          createdAt={data.createdAt}
-        />
-      ))}
+      {historyItems.length === 0 ? (
+        <p className='mt-40 text-center text-white'>履歴はありません</p>
+      ) : (
+        <>
+          {historyItems.map((data, index) => (
+            <HistoryItem
+              key={index}
+              status={data.done}
+              title={data.title}
+              amount={data.amount}
+              createdAt={data.created_at}
+            />
+          ))}
+        </>
+      )}
     </div>
   );
 }

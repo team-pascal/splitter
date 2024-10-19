@@ -1,11 +1,12 @@
+import { formatDate } from '@/utils/date';
+
 type Props = {
-  id: number;
   status: boolean;
   title: string;
-  fare: string;
+  amount: number;
   createdAt: string;
 };
-export function HistoryItem({ status, title, fare, createdAt }: Props) {
+export function HistoryItem({ status, title, amount, createdAt }: Props) {
   const styles = {
     status: 'py-1 px-3 md:px-4 rounded-2xl text-xs md:text-sm text-white',
   };
@@ -20,11 +21,13 @@ export function HistoryItem({ status, title, fare, createdAt }: Props) {
       </div>
       <div className='grow '>
         <p className='mb-1 text-sm md:text-xl'>{title}</p>
-        <p className='text-xs text-gray-300 md:text-base'>{createdAt}</p>
+        <p className='text-xs text-gray-300 md:text-base'>
+          {formatDate(createdAt)}
+        </p>
       </div>
       <div className='ml-5 content-center'>
         <p className='text-base font-semibold text-white md:text-2xl'>
-          {fare}円
+          {amount}円
         </p>
       </div>
     </div>
