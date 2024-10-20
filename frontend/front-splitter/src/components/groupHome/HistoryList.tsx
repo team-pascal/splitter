@@ -1,31 +1,15 @@
-import axios from 'axios';
 import Link from 'next/link';
 
-import { History } from '@/types/history.type';
-
 import { HistoryItem } from './HistoryItem';
+import { getPayment } from '@/api/payment';
+import { HistoryResponse } from '@/types/history.type';
 
 interface Props {
   groupId: string;
 }
 
-async function fetchHistoryItems(groupId: string): Promise<History[]> {
-  try {
-    const response = await axios.get<History[]>(
-      'http://localhost:3000/api/payments',
-      {
-        params: { groupId },
-      },
-    );
-    return response.data;
-  } catch (e) {
-    console.error('Failed to fetch history data: ', e);
-    return [];
-  }
-}
-
 export async function HistoryList({ groupId }: Props) {
-  const historyItems: History[] = await fetchHistoryItems(groupId);
+  const historyItems: HistoryResponse = await getPayment(groupId);
 
   return (
     <div className='min-w-full'>

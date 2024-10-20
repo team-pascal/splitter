@@ -6,11 +6,11 @@ import { Input } from '@/components/Input';
 import { InputLabel } from '@/components/InputLabel';
 import { usePaymentDetail } from '@/hooks/usePaymentDetail';
 import { Method } from '@/types/method.type';
-import { FormInput } from '@/types/paymentDetailes/FormInput.type';
 
 import { PaymentMode } from './PaymentMode';
 import { ErrorComponent } from '../ErrorComponent';
 import { Loading } from '../Loading';
+import { FormInput } from '@/types/paymentDetailes/formInput.type';
 
 interface Props {
   method: Method | undefined;
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function PaymentDetail({ method, paymentId }: Props) {
-  const [loading, data, error] = usePaymentDetail();
+  const [loading, data, error] = usePaymentDetail(paymentId);
   const methods = useForm<FormInput>({
     defaultValues: {
       title: '',
@@ -38,14 +38,17 @@ export function PaymentDetail({ method, paymentId }: Props) {
   if (method === undefined || paymentId === undefined) {
     return <div>ページが存在しません</div>;
   }
-  if (error) {
+  if (error !== null) {
     return <ErrorComponent />;
   }
   if (loading) {
     return <Loading />;
   }
 
-  console.log(data);
+  console.log('error', error);
+  console.log('data', data);
+
+  console.log('aafdsfadsfdsjafhdjksafhjkdsahfkdj');
 
   return (
     <div className='main'>

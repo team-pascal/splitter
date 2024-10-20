@@ -9,3 +9,5 @@ export interface History {
   updated_at: string;
   deleted_at: boolean;
 }
+
+export type HistoryResponse = History[];
