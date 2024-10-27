@@ -2,12 +2,21 @@ package routers
 
 import (
 	"splitter/internal/controllers"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/uptrace/bun"
 )
 
 func SetupRouter(router *gin.Engine, db *bun.DB) {
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders: []string{"Origin", "Content-Type", "Cache-Control"},
+		MaxAge:       12 * time.Hour,
+	}))
 
 	groups := router.Group("/groups")
 	{
